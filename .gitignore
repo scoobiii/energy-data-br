@@ -1,0 +1,16 @@
+__pycache__/
+*.pyc
+.pytest_cache/
+*.egg-info/
+build/
+dist/
+
+# dados gerados (reais, baixados da API) — não versionar
+*.sqlite
+*.sqlite-wal
+*.sqlite-shm
+web/aneel_mmgd_treemap.json
+
+.venv/
+venv/
+.DS_Store
