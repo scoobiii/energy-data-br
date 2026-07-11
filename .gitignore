@@ -14,3 +14,12 @@ web/aneel_mmgd_treemap.json
 .venv/
 venv/
 .DS_Store
+__pycache__/
+*.pyc
+*.egg-info/
+.pytest_cache/
+cache/
+*.sqlite
+*.db
+*.bak
+*.old
