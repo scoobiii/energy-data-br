@@ -1,125 +1,147 @@
-# aneel-mmgd
 
-ETL + regras de negócio + treemap para os dados abertos de **Micro e Minigeração
-Distribuída (MMGD)** da ANEEL — geração solar, eólica, hídrica e térmica
-conectada à rede de distribuição em todo o Brasil.
+# energy-data-br
 
-Projeto da [MEx Energia](https://mex.eco.br), usado internamente para
-mapear mercado potencial de barramento 800VDC + BESS, e aberto à comunidade
-porque a base é pública e o problema (ETL confiável + classificação
-regulatória + visualização) é comum a qualquer player do setor.
+ETL + regras de negócio + treemap para os dados abertos de energia do Brasil — integrando **cadastro regulatório da ANEEL** (MMGD) com **dados operacionais do ONS** (carga e geração).
 
-## O que é
+Projeto da [MEx Energia](https://mex.eco.br), usado internamente para mapear oportunidades de mercado em barramento 800VDC + BESS. Aberto à comunidade porque a base de dados é pública e o desafio (ETL confiável + classificação regulatória + visualização) é comum a qualquer player do setor.
 
-- **Fonte real**: API pública CKAN DataStore do Portal de Dados Abertos ANEEL
-  (`dadosabertos.aneel.gov.br`) — sem chave, sem scraping, sem dado inventado.
-- **Regras de negócio explícitas**: classificação de faixa regulatória
-  (Lei 14.300/2022), fonte, modalidade — ver [`docs/regras_negocio.md`](docs/regras_negocio.md).
-- **Persistência local em SQLite**, com uma tabela adicional
-  (`mmgd_vector_docs`) já preparada para um pipeline de RAG/fine-tuning
-  futuro (texto + metadata prontos; embedding fica para um job separado).
-- **Visualização treemap estilo Finviz**, offline-first, zero dependência
-  de CDN/JS externo — abre em qualquer navegador, inclusive via Termux.
+---
 
-Este repositório **não contém nenhum dado de exemplo, mock ou placeholder**.
-Toda informação vem de rodar o ETL contra a API real.
+## 📦 O que é
 
-## Instalação
+- **Fontes oficiais**:
+  - **ANEEL**: Portal de Dados Abertos (`dadosabertos.aneel.gov.br`) — snapshot ZIP do cadastro de Micro e Minigeração Distribuída (MMGD).
+  - **ONS**: Portal de Dados Abertos (`dados.ons.org.br`) — API `apicarga` (dados semi-horários de carga) e bucket S3 (histórico).
+- **Regras de negócio explícitas**: classificação de faixa regulatória (Lei 14.300/2022), fonte primária, modalidade e faixa estratégica — veja [`docs/regras_negocio.md`](docs/regras_negocio.md).
+- **Persistência local**: SQLite com tabelas separadas para ANEEL (`mmgd_*`) e ONS (`ons_*`), além de `mmgd_vector_docs` preparada para RAG/fine-tuning.
+- **Visualização**: Treemap estilo Finviz, totalmente offline, sem dependências externas de CDN ou JavaScript.
+
+> Este repositório **não contém dados de exemplo, mocks ou placeholders**. Toda informação é obtida ao executar o ETL contra as fontes oficiais.
+
+---
+
+## 🔧 Instalação
 
 ```bash
-git clone https://github.com/scoobiii/aneel-mmgd.git
-cd aneel-mmgd
+git clone https://github.com/scoobiii/energy-data-br.git
+cd energy-data-br
 pip install -e .
 ```
 
-Sem dependências externas (stdlib puro: `urllib`, `sqlite3`, `argparse`).
-`pytest` é opcional, só para desenvolvimento (`pip install -e ".[dev]"`).
+**Sem dependências externas pesadas** — utiliza apenas a biblioteca padrão do Python (`urllib`, `sqlite3`, `csv`, `argparse`, etc.).  
+`pytest` é opcional (apenas para desenvolvimento): `pip install -e ".[dev]"`.
 
-## Uso
+---
+
+## 🚀 Uso
 
 ```bash
-# 1. baixa e classifica os dados reais (teste rápido: 20k registros)
-aneel-mmgd --db aneel_mmgd.sqlite sync --max-records 20000
+# 1. Sincronizar ANEEL (teste rápido)
+energy-data-br sync --source aneel --max-records 100
 
-# 2. base inteira (milhões de linhas — pode levar bastante tempo)
-aneel-mmgd --db aneel_mmgd.sqlite sync
+# 2. Sincronizar ANEEL completo (~1.55 GB CSV)
+energy-data-br sync --source aneel
 
-# 3. gera os docs de texto prontos para um futuro pipeline de embeddings/RAG
-aneel-mmgd --db aneel_mmgd.sqlite build-vectors
+# 3. Sincronizar ONS (últimos 7 dias)
+energy-data-br sync --source ons --days 7
 
-# 4. exporta a hierarquia Brasil > UF > Fonte para o treemap
-aneel-mmgd --db aneel_mmgd.sqlite export-treemap --out web/aneel_mmgd_treemap.json
+# 4. Gerar documentos para RAG
+energy-data-br build-vectors
 
-# 5. totais direto no terminal
-aneel-mmgd --db aneel_mmgd.sqlite stats
+# 5. Exportar treemap
+energy-data-br export-treemap --out web/treemap.json
+
+# 6. Estatísticas
+energy-data-br stats
 ```
 
-### Ver o treemap
+### Visualizar o treemap
 
 ```bash
 cd web
 python3 -m http.server 8000
-# abra http://localhost:8000/treemap.html
 ```
 
-(Abrir `treemap.html` direto do disco também funciona — o arquivo tem um
-seletor manual de arquivo `.json`, já que `file://` bloqueia `fetch()`.)
+Acesse: [http://localhost:8000/treemap.html](http://localhost:8000/treemap.html)
 
-## Arquitetura
+> O arquivo `treemap.html` também pode ser aberto diretamente do disco (possui seletor manual de arquivo JSON).
+
+---
+
+## 🏗️ Arquitetura
 
 ```
-src/aneel_mmgd/
-  api_client.py   # HTTP + paginação contra a API real da ANEEL
-  rules.py         # regras de negócio puras (testáveis sem I/O)
-  db.py            # persistência SQLite (schema.sql + inserts + agregações)
-  export.py        # export treemap JSON + resumo de totais
-  cli.py           # `aneel-mmgd` (sync / build-vectors / export-treemap / stats)
-  schema.sql       # DDL: mmgd_raw -> mmgd_fato -> views -> mmgd_vector_docs
-web/
-  treemap.html     # viewer standalone, squarified treemap, zero dependência
-docs/
-  regras_negocio.md
-tests/
-  test_rules.py                    # regras de negócio, sem rede
-  test_db.py                       # SQLite in-memory, sem rede
-  test_api_client_integration.py   # bate na API real; pula (skip) se offline
+energy-data-br/
+├── aneel/                  # Cliente ANEEL
+│   ├── __init__.py
+│   └── api_client.py       # ZIP + streaming CSV (1.55 GB)
+├── ons/                    # Cliente ONS
+│   ├── __init__.py
+│   └── api_carga.py        # API apicarga + S3
+├── tests/
+│   ├── test_api_client_integration.py
+│   ├── test_ons_client.py
+│   ├── test_db.py
+│   └── test_rules.py
+├── web/
+│   └── treemap.html        # Visualizador offline
+├── docs/
+│   └── regras_negocio.md
+├── cli.py                  # Interface unificada
+├── db.py                   # SQLite
+├── export.py               # Exportação treemap
+├── rules.py                # Regras de negócio
+├── schema.sql              # DDL
+├── pyproject.toml
+└── README.md
 ```
 
-### Schema SQLite
+---
 
-- `mmgd_raw` — landing zone (JSON verbatim de cada registro, schema-flexível)
-- `mmgd_fato` — fato tipado e classificado (fonte, modalidade, faixa
-  regulatória, faixa estratégica MEx, flag de outlier)
-- `vw_totais_uf`, `vw_totais_fonte`, `vw_totais_uf_fonte`,
-  `vw_totais_modalidade`, `vw_faixa_mex` — agregações prontas
-- `mmgd_vector_docs` — texto PT-BR sintetizado a partir das agregações +
-  metadata JSON + coluna `embedding` (NULL até um job de embedding rodar)
+## 📊 Schema SQLite
 
-Detalhes de cada regra: [`docs/regras_negocio.md`](docs/regras_negocio.md).
+- `mmgd_raw` — zona de pouso (JSON bruto, schema-flexível)
+- `mmgd_fato` — fato classificado (fonte, modalidade, faixa regulatória, faixa estratégica MEx, outlier)
+- `ons_fato` — dados de carga verificada/programada por subsistema
+- `mmgd_vector_docs` — texto em PT-BR + metadata + coluna `embedding`
+- **Views**: `vw_totais_uf`, `vw_totais_fonte`, `vw_totais_uf_fonte`, `vw_totais_modalidade`, `vw_faixa_mex`
 
-## Por que a coluna resolve por keyword em vez de nome fixo?
+---
 
-A ANEEL já alterou nomenclatura de colunas entre revisões do dataset.
-`rules.resolve_columns()` introspecta o schema real via
-`datastore_search?limit=0` e resolve cada campo por substring
-(`"potenciainstaladakw" in nome.lower()`), imprimindo o mapeamento resolvido
-no início de cada `sync` — se algo não bater, aparece como `[aviso]` no
-terminal, não silenciosamente como dado errado.
+## 💡 Diferenciais Técnicos
 
-## Roadmap
+| Diferencial                     | Como funciona |
+|-------------------------------|-------------|
+| Streaming de 1.55 GB          | `csv.DictReader` + `zipfile` — consumo de memória O(1) |
+| Cross-architecture            | Stdlib puro — roda em AMD64 e ARM64 (Termux) |
+| Zero dependências pesadas     | Apenas módulos nativos do Python |
+| Detecção de mudanças          | SHA-256 canônico por registro |
+| Robustez em rede instável     | Resume download + retry com backoff |
+| Offline-first                 | Treemap com seletor manual de JSON |
 
-- [ ] Job de embedding para `mmgd_vector_docs` (sentence-transformers local,
-      ex: `bge-small-pt` ou similar) + índice `sqlite-vec`
-- [ ] Suporte a outros datasets ANEEL/ONS via `--resource-id` (SIGA,
-      empreendimentos de geração centralizada)
-- [ ] Exportação incremental (`sync --since <data>`) em vez de full reload
+---
 
-## Contribuindo
+## 🗺️ Roadmap
 
-Issues e PRs bem-vindos. Rode `pytest -v` antes de abrir PR — os testes de
-integração (`test_api_client_integration.py`) batem na API real e pulam
-sozinhos se você estiver offline.
+- Geração por usina (ONS) para correlação com MMGD
+- Download completo do histórico S3 do ONS
+- Pipeline de embeddings + RAG (`sentence-transformers` + `sqlite-vec`)
+- Série histórica diária de crescimento do MMGD
+- Microserviço FastAPI com Swagger
 
-## Licença
+---
 
-MIT — ver [`LICENSE`](LICENSE).
+## 🤝 Contribuindo
+
+Issues e Pull Requests são bem-vindos.  
+Antes de abrir um PR, rode `pytest -v`. Os testes de integração batem nas APIs reais e são ignorados automaticamente se você estiver offline.
+
+---
+
+## 📄 Licença
+
+MIT — veja o arquivo [LICENSE](LICENSE).
+
+---
+
+
