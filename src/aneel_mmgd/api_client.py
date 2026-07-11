@@ -1,98 +1,93 @@
 """
-api_client.py — cliente para a API CKAN DataStore do Portal de Dados Abertos ANEEL.
-
-Endpoint público, sem necessidade de API key para leitura:
-    https://dadosabertos.aneel.gov.br/api/3/action/datastore_search
-
-Dataset de referência:
-    "Relação de empreendimentos de Mini e Micro Geração Distribuída"
-    https://dadosabertos.aneel.gov.br/dataset/relacao-de-empreendimentos-de-geracao-distribuida
-    resource_id: b1bd71e7-d0ad-4214-9053-cbd58e9564a7
-
-Este módulo faz apenas transporte HTTP + paginação. Nenhum dado é
-sintetizado ou inventado aqui — tudo vem diretamente da resposta da API.
+api_client.py — ingestão ANEEL via ZIP snapshot (datastore_search morto, ver Sprint 0).
+Nomes de função mantidos (fetch_schema, iter_records) para compatibilidade com cli.py existente.
 """
-
 from __future__ import annotations
-
+import csv
+import hashlib
 import json
 import time
 import urllib.error
-import urllib.parse
 import urllib.request
+from io import TextIOWrapper
+from pathlib import Path
 from typing import Iterator
 
-BASE_URL = "https://dadosabertos.aneel.gov.br/api/3/action/datastore_search"
-DEFAULT_RESOURCE_ID = "b1bd71e7-d0ad-4214-9053-cbd58e9564a7"
-DEFAULT_PAGE_SIZE = 5000
-USER_AGENT = "aneel-mmgd-etl/0.1 (+https://mex.eco.br)"
+PACKAGE_ID = "relacao-de-empreendimentos-de-geracao-distribuida"
+CKAN_BASE = "https://dadosabertos.aneel.gov.br/api/3/action"
+CACHE_DIR = Path("cache")
+USER_AGENT = "aneel-mmgd-etl/0.2 (+https://mex.eco.br)"
 
 
 class AneelApiError(RuntimeError):
     pass
 
 
-def http_get_json(url: str, params: dict, retries: int = 3, timeout: int = 30) -> dict:
-    """GET + parse JSON, with exponential backoff retries on network failure."""
-    qs = urllib.parse.urlencode(params)
-    full_url = f"{url}?{qs}"
-    last_err: Exception | None = None
+def _get_latest_zip_url() -> str:
+    url = f"{CKAN_BASE}/package_show?id={PACKAGE_ID}"
+    req = urllib.request.Request(url, headers={"User-Agent": USER_AGENT})
+    with urllib.request.urlopen(req, timeout=30) as resp:
+        data = json.loads(resp.read().decode("utf-8"))
+    if not data.get("success"):
+        raise AneelApiError(f"package_show falhou: {data.get('error')}")
+    zips = [r for r in data["result"]["resources"] if r["name"].lower().endswith(".zip")]
+    if not zips:
+        raise AneelApiError("Nenhum resource .zip encontrado no package")
+    return zips[0]["url"]
+
+
+def _download_snapshot(url: str, retries: int = 3) -> Path:
+    CACHE_DIR.mkdir(exist_ok=True)
+    zip_path = CACHE_DIR / "mmgd.zip"
+    last_err = None
     for attempt in range(1, retries + 1):
         try:
-            req = urllib.request.Request(full_url, headers={"User-Agent": USER_AGENT})
-            with urllib.request.urlopen(req, timeout=timeout) as resp:
-                return json.loads(resp.read().decode("utf-8"))
-        except (urllib.error.URLError, TimeoutError, ConnectionError) as e:
+            urllib.request.urlretrieve(url, zip_path)
+            import zipfile
+            with zipfile.ZipFile(zip_path) as zf:
+                if zf.testzip() is not None:
+                    raise zipfile.BadZipFile("ZIP corrompido")
+            return zip_path
+        except Exception as e:
             last_err = e
             if attempt < retries:
                 time.sleep(2 ** attempt)
-    raise AneelApiError(f"Falha ao buscar {full_url} após {retries} tentativas: {last_err}")
+    raise AneelApiError(f"Download falhou após {retries} tentativas: {last_err}")
 
 
-def fetch_schema(resource_id: str = DEFAULT_RESOURCE_ID) -> list[dict]:
-    """Retorna a lista de campos reais expostos pelo datastore (introspecção,
-    não hardcode) — ex: [{'id': 'SigUF', 'type': 'text'}, ...]."""
-    data = http_get_json(BASE_URL, {"resource_id": resource_id, "limit": 0})
-    if not data.get("success"):
-        raise AneelApiError(f"datastore_search sem sucesso: {data}")
-    return data["result"]["fields"]
-
-
-def fetch_page(resource_id: str, offset: int, limit: int) -> list[dict]:
-    data = http_get_json(BASE_URL, {"resource_id": resource_id, "limit": limit, "offset": offset})
-    if not data.get("success"):
-        raise AneelApiError(f"datastore_search sem sucesso (offset={offset}): {data}")
-    return data["result"]["records"]
+def fetch_schema(resource_id: str | None = None) -> list[dict]:
+    """Introspecção real do CSV: lê o header do ZIP, sem hardcode de campo."""
+    import zipfile
+    zip_path = _download_snapshot(_get_latest_zip_url())
+    with zipfile.ZipFile(zip_path) as zf:
+        csv_name = next(n for n in zf.namelist() if n.lower().endswith(".csv"))
+        with zf.open(csv_name) as raw:
+            header = TextIOWrapper(raw, encoding="latin-1").readline()
+    fields = header.strip().split(";")
+    return [{"id": f.strip('"'), "type": "text"} for f in fields]
 
 
 def iter_records(
-    resource_id: str = DEFAULT_RESOURCE_ID,
-    page_size: int = DEFAULT_PAGE_SIZE,
+    resource_id: str | None = None,
+    page_size: int = 5000,
     max_records: int | None = None,
     on_page=None,
 ) -> Iterator[dict]:
-    """Gera registros reais da API, paginando via offset/limit até esgotar
-    o dataset (ou atingir max_records, se informado).
-
-    on_page: callback opcional(offset:int, n:int) para progresso.
-    """
-    offset = 0
+    """Streaming real do CSV dentro do ZIP. resource_id/page_size mantidos
+    na assinatura por compatibilidade, não usados (dataset é snapshot único)."""
+    import zipfile
+    zip_path = _download_snapshot(_get_latest_zip_url())
     total = 0
-    while True:
-        limit = page_size
-        if max_records is not None:
-            remaining = max_records - total
-            if remaining <= 0:
-                return
-            limit = min(page_size, remaining)
-        records = fetch_page(resource_id, offset, limit)
-        if not records:
-            return
-        if on_page:
-            on_page(offset, len(records))
-        for r in records:
-            yield r
-        total += len(records)
-        offset += len(records)
-        if len(records) < limit:
-            return  # última página do dataset
+    with zipfile.ZipFile(zip_path) as zf:
+        csv_name = next(n for n in zf.namelist() if n.lower().endswith(".csv"))
+        with zf.open(csv_name) as raw:
+            text = TextIOWrapper(raw, encoding="latin-1")
+            reader = csv.DictReader(text, delimiter=";")
+            for row in reader:
+                row["_hash"] = hashlib.sha256(json.dumps(row, sort_keys=True).encode()).hexdigest()
+                yield row
+                total += 1
+                if on_page and total % page_size == 0:
+                    on_page(total, page_size)
+                if max_records is not None and total >= max_records:
+                    return
