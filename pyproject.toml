@@ -4,13 +4,13 @@ version = "0.2.0"
 description = "ETL de dados abertos de energia do Brasil (ANEEL + ONS)"
 readme = "README.md"
 requires-python = ">=3.9"
-license = {text = "MIT"}
+license = "MIT"
 
 [project.scripts]
-energy-data-br = "cli:main"
+energy-data-br = "energy_data_br.cli:main"
 
 [tool.setuptools]
-packages = ["aneel", "ons"]
+packages = ["energy_data_br", "energy_data_br.aneel", "energy_data_br.ons"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]

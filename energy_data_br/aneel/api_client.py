@@ -112,3 +112,11 @@ def get_latest_resource() -> Dict[str, Any]:
         raise RuntimeError("Nenhum resource ZIP encontrado")
     
     return zip_resources[0]
+
+# Aliases para compatibilidade com CLI
+
+def get_all_records(cache_dir: Path = Path("cache")):
+    """Fluxo completo: download → parse → streaming."""
+    url = _get_latest_zip_url()
+    zip_path = _download_snapshot(url)
+    yield from iter_records(zip_path)

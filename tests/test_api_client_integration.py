@@ -13,7 +13,7 @@ def is_online() -> bool:
 pytestmark = pytest.mark.skipif(not is_online(), reason="Offline ou ANEEL inacessível")
 
 def test_fetch_schema_returns_real_fields():
-    from aneel.api_client import fetch_schema
+    from energy_data_br.aneel.api_client import fetch_schema
     schema = fetch_schema()
     assert isinstance(schema, list)
     assert len(schema) > 0
@@ -24,7 +24,7 @@ def test_fetch_schema_returns_real_fields():
 
 def test_iter_records_respects_max_records():
     """Usa _get_latest_zip_url + _download_snapshot + iter_records."""
-    from aneel.api_client import _get_latest_zip_url, _download_snapshot, iter_records
+    from energy_data_br.aneel.api_client import _get_latest_zip_url, _download_snapshot, iter_records
     
     zip_path = Path("cache/mmgd.zip")
     if not zip_path.exists():

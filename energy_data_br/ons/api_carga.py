@@ -5,32 +5,15 @@ from datetime import datetime, timedelta
 from typing import List, Dict, Any, Iterator
 from pathlib import Path
 
-# Códigos de área válidos (confirmados via teste real)
 CODIGOS_AREA_VALIDOS = ["S", "N", "NE", "SIN"]
-
-# URLs reais
 APICARGA_BASE = "https://apicarga.ons.org.br/prd"
 S3_BASE = "https://ons-aws-prod-opendata.s3.amazonaws.com/dataset"
 
-def fetch_carga_verificada(
-    dat_inicio: str,
-    dat_fim: str,
-    cod_areacarga: str = "S"
-) -> List[Dict[str, Any]]:
-    """
-    Busca carga verificada via apicarga.ons.org.br.
-    Exemplo: dat_inicio=2026-07-10, dat_fim=2026-07-11
-    """
+def fetch_carga_verificada(dat_inicio: str, dat_fim: str, cod_areacarga: str = "S") -> List[Dict[str, Any]]:
     if cod_areacarga not in CODIGOS_AREA_VALIDOS:
         raise ValueError(f"cod_areacarga inválido. Use: {CODIGOS_AREA_VALIDOS}")
-    
     url = f"{APICARGA_BASE}/cargaverificada?dat_inicio={dat_inicio}&dat_fim={dat_fim}&cod_areacarga={cod_areacarga}"
-    
-    req = urllib.request.Request(url, headers={
-        'User-Agent': 'MEx-Energia-ETL/1.0',
-        'Accept': 'application/json'
-    })
-    
+    req = urllib.request.Request(url, headers={'User-Agent': 'MEx-Energia-ETL/1.0', 'Accept': 'application/json'})
     try:
         with urllib.request.urlopen(req, timeout=30) as response:
             data = json.loads(response.read().decode('utf-8'))
@@ -39,22 +22,11 @@ def fetch_carga_verificada(
         print(f"[ERROR] apicarga falhou: {e}")
         return []
 
-def fetch_carga_programada(
-    dat_inicio: str,
-    dat_fim: str,
-    cod_areacarga: str = "S"
-) -> List[Dict[str, Any]]:
-    """Busca carga programada via apicarga.ons.org.br."""
+def fetch_carga_programada(dat_inicio: str, dat_fim: str, cod_areacarga: str = "S") -> List[Dict[str, Any]]:
     if cod_areacarga not in CODIGOS_AREA_VALIDOS:
         raise ValueError(f"cod_areacarga inválido. Use: {CODIGOS_AREA_VALIDOS}")
-    
     url = f"{APICARGA_BASE}/cargaprogramada?dat_inicio={dat_inicio}&dat_fim={dat_fim}&cod_areacarga={cod_areacarga}"
-    
-    req = urllib.request.Request(url, headers={
-        'User-Agent': 'MEx-Energia-ETL/1.0',
-        'Accept': 'application/json'
-    })
-    
+    req = urllib.request.Request(url, headers={'User-Agent': 'MEx-Energia-ETL/1.0', 'Accept': 'application/json'})
     try:
         with urllib.request.urlopen(req, timeout=30) as response:
             data = json.loads(response.read().decode('utf-8'))
@@ -64,11 +36,9 @@ def fetch_carga_programada(
         return []
 
 def fetch_recent_window(days: int = 1) -> Iterator[Dict[str, Any]]:
-    """Busca janela recente (últimos N dias) para todas as áreas."""
     today = datetime.now()
     dat_fim = today.strftime('%Y-%m-%d')
     dat_inicio = (today - timedelta(days=days)).strftime('%Y-%m-%d')
-    
     for area in CODIGOS_AREA_VALIDOS:
         print(f"📊 Buscando área {area}...")
         records = fetch_carga_verificada(dat_inicio, dat_fim, area)
@@ -76,12 +46,16 @@ def fetch_recent_window(days: int = 1) -> Iterator[Dict[str, Any]]:
             rec['_fonte'] = 'verificada'
             rec['_area'] = area
             yield rec
+        # (opcional: programada)
+        # prog = fetch_carga_programada(dat_inicio, dat_fim, area)
+        # for p in prog:
+        #     p['_fonte'] = 'programada'
+        #     p['_area'] = area
+        #     yield p
 
 def download_s3_bulk(dataset: str, dest: Path) -> bool:
-    """Baixa CSV do S3 ONS (bulk histórico)."""
     url = f"{S3_BASE}/{dataset}"
     req = urllib.request.Request(url, headers={'User-Agent': 'MEx-Energia-ETL/1.0'})
-    
     try:
         with urllib.request.urlopen(req, timeout=60) as response:
             with open(dest, 'wb') as f:

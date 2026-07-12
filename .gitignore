@@ -23,3 +23,12 @@ cache/
 *.db
 *.bak
 *.old
+
+# Scripts temporários
+scripts/
+*.log
+sample_data.txt
+test_benchmark.db
+
+# Build artifacts
+energy_data_br.egg-info/
