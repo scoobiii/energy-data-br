@@ -145,8 +145,8 @@ energy-data-br/
 Tabelas principais
 
 Tabela Descrição Registros
-mmgd_raw Landing zone (JSON bruto da ANEEL) 4.533.061
-mmgd_fato Fato classificado (fonte, modalidade, faixa regulatória, faixa estratégica MEx) 4.533.061
+mmgd_raw Landing zone (JSON bruto da ANEEL) 5.947.561 (variável — atualizado continuamente pela ANEEL)
+mmgd_fato Fato classificado (fonte, modalidade, faixa regulatória, faixa estratégica MEx) 5.947.561 (variável — atualizado continuamente pela ANEEL)
 siga_fato Usinas centralizadas (hidro, térmica, eólica utility‑scale) 25.215
 ons_carga Carga verificada/programada (semi‑horária) 1.920
 dessem_detalhe Balanço Energético DESSEM (programação diária, patamares, geração por fonte) 76.877
@@ -232,3 +232,5 @@ EOF
 ```
 
 ---
+
+> **Nota**: A contagem de registros MMGD varia conforme a base da ANEEL é atualizada continuamente. Os números acima refletem uma execução em 2026-07-13; rode `energy-data-br stats` para o valor atual.
