@@ -1,10 +1,8 @@
 #!/usr/bin/env python3
 """
-energy_data_br/server.py – API REST consolidada para energy-data-br.
-Inclui todos os endpoints: MMGD, SIGA, ONS, DESSEM, Tokenização, Predição.
-ThreadingHTTPServer + cache de consultas pesadas.
+energy_data_br/server.py – API REST consolidada (versão limpa).
+Inclui cache, threading, todos os endpoints, do_POST para IoT e tokenização.
 """
-
 import json
 import sqlite3
 import time
@@ -31,6 +29,7 @@ class SimpleCache:
         return None
     def set(self, key, data):
         self.cache[key] = (data, time.time())
+
 cache = SimpleCache(ttl=600)
 
 def get_db_connection():
@@ -47,28 +46,17 @@ class EnergyAPIHandler(BaseHTTPRequestHandler):
         path = parsed.path
         query = urllib.parse.parse_qs(parsed.query)
 
-        # Rota raiz
         if path == '/':
             self.send_json({
-                "message": "Energy Data BR API (stdlib)",
-                "endpoints": [
-                    "/stats", "/totais/uf", "/totais/fonte",
-                    "/empreendimentos", "/ons/carga", "/siga",
-                    "/siga/geojson", "/totais/temporal", "/growth",
-                    "/treemap/brasil", "/treemap/uf/{uf}",
-                    "/geracao/fonte", "/geracao/serie", "/geracao/atual",
-                    "/carga/serie", "/mmgd/serie",
-                    "/predicao/carga", "/predicao/mmgd",
-                    "/token/saldo", "/token/vender (POST)",
-                    "/dashboard", "/treemap"
-                ]
+                "message": "Energy Data BR API",
+                "endpoints": ["/stats", "/totais/uf", "/totais/fonte", "/empreendimentos", "/ons/carga", "/siga", "/siga/geojson", "/totais/temporal", "/growth", "/treemap/brasil", "/treemap/uf/{uf}", "/geracao/fonte", "/geracao/serie", "/geracao/atual", "/carga/serie", "/mmgd/serie", "/predicao/carga", "/predicao/mmgd", "/token/saldo", "/token/vender (POST)", "/iot/saldo", "/iot/medicao (POST)", "/dashboard", "/treemap"]
             })
 
-        # === MMGD ===
+        # ========== MMGD ==========
         elif path == '/stats':
             cached = cache.get('stats')
             if cached:
-                self.send_json(json.loads(cached))
+                self.send_json(cached)
                 return
             conn = get_db_connection()
             tables = ['mmgd_raw', 'mmgd_fato', 'ons_carga', 'dessem_detalhe', 'siga_fato']
@@ -79,13 +67,13 @@ class EnergyAPIHandler(BaseHTTPRequestHandler):
                 except sqlite3.OperationalError:
                     stats[table] = None
             conn.close()
-            cache.set('stats', json.dumps(stats))
+            cache.set('stats', stats)
             self.send_json(stats)
 
         elif path == '/totais/uf':
             cached = cache.get('totais_uf')
             if cached:
-                self.send_json(json.loads(cached))
+                self.send_json(cached)
                 return
             conn = get_db_connection()
             rows = conn.execute("""
@@ -95,7 +83,7 @@ class EnergyAPIHandler(BaseHTTPRequestHandler):
             """).fetchall()
             conn.close()
             result = [dict(r) for r in rows]
-            cache.set('totais_uf', json.dumps(result))
+            cache.set('totais_uf', result)
             self.send_json(result)
 
         elif path == '/totais/fonte':
@@ -136,19 +124,17 @@ class EnergyAPIHandler(BaseHTTPRequestHandler):
             inicio = query.get('inicio', ['2015-01-01'])[0]
             fim = query.get('fim', ['2026-12-31'])[0]
             conn = get_db_connection()
-            cur = conn.cursor()
             q = "SELECT substr(data_conexao,1,7) as mes, SUM(potencia_instalada_kw) as total_kw FROM mmgd_fato WHERE siguf=? AND data_conexao BETWEEN ? AND ?"
             params_sql = [uf, inicio, fim]
             if fonte:
                 q += " AND dscfontegeracao=?"
                 params_sql.append(fonte.lower())
             q += " GROUP BY mes ORDER BY mes"
-            cur.execute(q, params_sql)
-            rows = cur.fetchall()
+            rows = conn.execute(q, params_sql).fetchall()
             conn.close()
             self.send_json([{'mes': r['mes'], 'potencia_kw': r['total_kw']} for r in rows])
 
-        # === ONS CARGA ===
+        # ========== ONS CARGA ==========
         elif path == '/ons/carga':
             area = query.get('area', [''])[0].upper()
             limit = min(int(query.get('limit', ['100'])[0]), 1000)
@@ -170,9 +156,7 @@ class EnergyAPIHandler(BaseHTTPRequestHandler):
             inicio = query.get('inicio', [(datetime.utcnow() - timedelta(days=7)).strftime('%Y-%m-%d')])[0]
             fim = query.get('fim', [datetime.utcnow().strftime('%Y-%m-%d')])[0]
             conn = get_db_connection()
-            cur = conn.cursor()
-            cur.execute("SELECT data_json FROM ons_carga WHERE area=? AND json_extract(data_json,'$.din_referenciautc') BETWEEN ? AND ? ORDER BY data_json", (area, inicio, fim))
-            rows = cur.fetchall()
+            rows = conn.execute("SELECT data_json FROM ons_carga WHERE area=? AND json_extract(data_json,'$.din_referenciautc') BETWEEN ? AND ? ORDER BY data_json", (area, inicio, fim)).fetchall()
             conn.close()
             resultado = []
             for r in rows:
@@ -180,7 +164,7 @@ class EnergyAPIHandler(BaseHTTPRequestHandler):
                 resultado.append({'data': data.get('din_referenciautc'), 'carga': data.get('val_cargaglobal')})
             self.send_json(resultado)
 
-        # === SIGA ===
+        # ========== SIGA ==========
         elif path == '/siga':
             tipo = query.get('tipo', [''])[0].upper()
             uf = query.get('uf', [''])[0].upper()
@@ -217,7 +201,7 @@ class EnergyAPIHandler(BaseHTTPRequestHandler):
             } for r in rows]
             self.send_json({"type": "FeatureCollection", "features": features})
 
-        # === DESSEM / GERAÇÃO ===
+        # ========== DESSEM / GERAÇÃO ==========
         elif path == '/geracao/fonte':
             inicio = query.get('inicio', ['2025-01-01'])[0]
             fim = query.get('fim', ['2026-12-31'])[0]
@@ -270,7 +254,7 @@ class EnergyAPIHandler(BaseHTTPRequestHandler):
                 resultado = {}
             self.send_json(resultado)
 
-        # === PREDIÇÃO ===
+        # ========== PREDIÇÃO ==========
         elif path == '/predicao/carga':
             from energy_data_br.predicao import prever_carga
             area = query.get('area', ['S'])[0]
@@ -285,7 +269,7 @@ class EnergyAPIHandler(BaseHTTPRequestHandler):
             resultado = prever_mmgd(uf, meses)
             self.send_json(resultado)
 
-        # === TOKENIZAÇÃO ===
+        # ========== TOKENIZAÇÃO ==========
         elif path == '/token/saldo':
             cliente_id = int(query.get('cliente_id', ['0'])[0])
             if cliente_id <= 0:
@@ -298,7 +282,35 @@ class EnergyAPIHandler(BaseHTTPRequestHandler):
         elif path == '/token/vender':
             self.send_json({'error': 'Use POST para esta rota'}, 405)
 
-        # === TEMPORAL / GROWTH ===
+        # ========== IoT ==========
+        elif path == '/iot/saldo':
+            cliente_id = int(query.get('cliente_id', ['0'])[0])
+            if cliente_id <= 0:
+                self.send_json({'error': 'cliente_id obrigatório'}, 400)
+                return
+            conn = get_db_connection()
+            credito = conn.execute("""
+                SELECT saldo_kwh, valor_unitario_rs, data_vencimento
+                FROM credito_excedente
+                WHERE cliente_id = ? AND data_vencimento > datetime('now')
+                ORDER BY data_vencimento ASC LIMIT 1
+            """, (cliente_id,)).fetchone()
+            ultima_medicao = conn.execute("""
+                SELECT timestamp, geracao_kw, consumo_kw, bateria_soc
+                FROM medicao_iot
+                WHERE cliente_id = ?
+                ORDER BY timestamp DESC LIMIT 1
+            """, (cliente_id,)).fetchone()
+            conn.close()
+            resultado = {
+                'cliente_id': cliente_id,
+                'saldo_kwh': credito['saldo_kwh'] if credito else 0,
+                'valor_unitario_rs': credito['valor_unitario_rs'] if credito else None,
+                'ultima_medicao': dict(ultima_medicao) if ultima_medicao else None
+            }
+            self.send_json(resultado)
+
+        # ========== TEMPORAL / GROWTH ==========
         elif path == '/totais/temporal':
             days = min(int(query.get('days', ['30'])[0]), 90)
             conn = get_db_connection()
@@ -322,9 +334,14 @@ class EnergyAPIHandler(BaseHTTPRequestHandler):
             conn.close()
             self.send_json([dict(r) for r in rows])
 
-        # === TREEMAP ===
+        # ========== TREEMAP ==========
         elif path == '/treemap/brasil':
             nivel = query.get('nivel', ['uf_fonte'])[0]
+            cache_key = f'treemap_{nivel}'
+            cached = cache.get(cache_key)
+            if cached:
+                self.send_json(cached)
+                return
             conn = get_db_connection()
             if nivel == 'fonte':
                 rows = conn.execute("""
@@ -333,7 +350,10 @@ class EnergyAPIHandler(BaseHTTPRequestHandler):
                     GROUP BY dscfontegeracao ORDER BY valor_kw DESC
                 """).fetchall()
                 conn.close()
-                self.send_json({"name": "Brasil", "children": [{"name": r["fonte"], "value": r["valor_kw"], "empreendimentos": r["empreendimentos"]} for r in rows]})
+                children = [{"name": r["fonte"], "value": r["valor_kw"], "empreendimentos": r["empreendimentos"]} for r in rows]
+                resultado = {"name": "Brasil", "children": children}
+                cache.set(cache_key, resultado)
+                self.send_json(resultado)
                 return
             if nivel == 'uf':
                 rows = conn.execute("""
@@ -342,8 +362,12 @@ class EnergyAPIHandler(BaseHTTPRequestHandler):
                     GROUP BY siguf ORDER BY valor_kw DESC
                 """).fetchall()
                 conn.close()
-                self.send_json({"name": "Brasil", "children": [{"name": r["uf"], "value": r["valor_kw"], "empreendimentos": r["empreendimentos"]} for r in rows]})
+                children = [{"name": r["uf"], "value": r["valor_kw"], "empreendimentos": r["empreendimentos"]} for r in rows]
+                resultado = {"name": "Brasil", "children": children}
+                cache.set(cache_key, resultado)
+                self.send_json(resultado)
                 return
+            # uf_fonte
             rows = conn.execute("""
                 SELECT siguf as uf, dscfontegeracao as fonte, SUM(potencia_instalada_kw) as valor_kw, COUNT(*) as empreendimentos
                 FROM mmgd_fato WHERE siguf != '' AND dscfontegeracao != ''
@@ -354,7 +378,9 @@ class EnergyAPIHandler(BaseHTTPRequestHandler):
             for r in rows:
                 por_uf.setdefault(r["uf"], []).append({"name": r["fonte"], "value": r["valor_kw"], "empreendimentos": r["empreendimentos"]})
             children = [{"name": uf, "children": fontes} for uf, fontes in sorted(por_uf.items(), key=lambda kv: -sum(f["value"] for f in kv[1]))]
-            self.send_json({"name": "Brasil", "children": children})
+            resultado = {"name": "Brasil", "children": children}
+            cache.set(cache_key, resultado)
+            self.send_json(resultado)
 
         elif path.startswith('/treemap/uf/'):
             uf = path.split('/')[-1].upper()
@@ -374,75 +400,16 @@ class EnergyAPIHandler(BaseHTTPRequestHandler):
             conn.close()
             self.send_json({"name": uf, "children": [dict(r) for r in rows]})
 
-        # === PÁGINAS ESTÁTICAS ===
+        # ========== PÁGINAS ESTÁTICAS ==========
         elif path == '/dashboard':
             self.send_file(str(WEB_DIR / 'dashboard.html'))
         elif path == '/treemap':
             self.send_file(str(WEB_DIR / 'treemap.html'))
 
-        # === 404 ===
-        elif path == '/iot/medicao':
-            if self.command != 'POST':
-                self.send_json({'error': 'Use POST'}, 405)
-                return
-            length = int(self.headers.get('Content-Length', 0))
-            body = self.rfile.read(length)
-            data = json.loads(body)
-            try:
-                from energy_data_br.iot import processar_medicao, adaptar_payload_generico
-                params = adaptar_payload_generico(data)
-                medicao_id = processar_medicao(**params)
-                self.send_json({'medicao_id': medicao_id, 'status': 'processada'})
-            except Exception as e:
-                self.send_json({'error': str(e)}, 400)
-
-        elif path == '/iot/saldo':
-            params = dict(urllib.parse.parse_qsl(parsed.query))
-            cliente_id = int(params.get('cliente_id', 0))
-            if cliente_id <= 0:
-                self.send_json({'error': 'cliente_id obrigatório'}, 400)
-                return
-            conn = get_db_connection()
-            # Saldo do crédito
-            credito = conn.execute("""
-                SELECT saldo_kwh, valor_unitario_rs, data_vencimento
-                FROM credito_excedente
-                WHERE cliente_id = ? AND data_vencimento > datetime('now')
-                ORDER BY data_vencimento ASC LIMIT 1
-            """, (cliente_id,)).fetchone()
-            # Última medição
-            ultima_medicao = conn.execute("""
-                SELECT timestamp, geracao_kw, consumo_kw, bateria_soc
-                FROM medicao_iot
-                WHERE cliente_id = ?
-                ORDER BY timestamp DESC LIMIT 1
-            """, (cliente_id,)).fetchone()
-            conn.close()
-            resultado = {
-                'cliente_id': cliente_id,
-                'saldo_kwh': credito['saldo_kwh'] if credito else 0,
-                'valor_unitario_rs': credito['valor_unitario_rs'] if credito else None,
-                'ultima_medicao': dict(ultima_medicao) if ultima_medicao else None
-            }
-            self.send_json(resultado)
-
-        elif path == '/iot/medicao' and self.command == 'GET':
-            # Suporte a GET para simulação (opcional)
-            params = dict(urllib.parse.parse_qsl(parsed.query))
-            cliente_id = int(params.get('cliente_id', 1))
-            geracao = float(params.get('geracao', 5.0))
-            consumo = float(params.get('consumo', 2.0))
-            from energy_data_br.iot import processar_medicao
-            medicao_id = processar_medicao(
-                cliente_id=cliente_id,
-                timestamp=datetime.utcnow().isoformat(),
-                geracao_kw=geracao,
-                consumo_kw=consumo
-            )
-            self.send_json({'medicao_id': medicao_id, 'status': 'processada (GET simulação)'})
+        else:
             self.send_json({"error": "Endpoint não encontrado"}, 404)
 
-    # ====== MÉTODO POST (TOKENIZAÇÃO) ======
+    # ========== MÉTODO POST ==========
     def do_POST(self):
         parsed = urllib.parse.urlparse(self.path)
         path = parsed.path
@@ -476,7 +443,7 @@ class EnergyAPIHandler(BaseHTTPRequestHandler):
         else:
             self.send_json({"error": "Endpoint não encontrado"}, 404)
 
-    # ====== HELPERS ======
+    # ========== HELPERS ==========
     def send_json(self, data, status=200):
         body = json.dumps(data, ensure_ascii=False).encode('utf-8')
         self.send_response(status)
@@ -496,12 +463,10 @@ class EnergyAPIHandler(BaseHTTPRequestHandler):
 
 def run_server(host='0.0.0.0', port=8000):
     server = ThreadingHTTPServer((host, port), EnergyAPIHandler)
-    print(f"🚀 Servidor rodando em http://{host}:{port}")
-    print("📊 Endpoints disponíveis em /")
+    print(f"Servidor rodando em http://{host}:{port}")
     try:
         server.serve_forever()
     except KeyboardInterrupt:
-        print("\n🛑 Servidor encerrado.")
         server.shutdown()
 
 if __name__ == '__main__':
