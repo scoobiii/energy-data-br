@@ -55,18 +55,20 @@ def main():
     return 0
 
 def sync_aneel(db_path, max_records):
-    """Sincroniza ANEEL usando get_all_records (ZIP snapshot)."""
+    """Sincroniza ANEEL: baixa raw e popula fato."""
     from energy_data_br.aneel.api_client import get_all_records
     from energy_data_br.db import connect, init_db
+    from energy_data_br.etl.populate_mmgd_fato import populate_mmgd_fato
     conn = connect(db_path)
     init_db(conn)
+    
     print(f"🔄 Sincronizando ANEEL (limite: {max_records or 'todos'})...")
     count = 0
     for rec in get_all_records(max_records=max_records):
         hash_ = rec.get('_hash', '')
-        cursor = conn.execute(
-            """INSERT OR IGNORE INTO mmgd_raw 
-               (source_resource_id, raw_json, hash) 
+        conn.execute(
+            """INSERT OR IGNORE INTO mmgd_raw
+               (source_resource_id, raw_json, hash)
                VALUES (?, ?, ?)""",
             ("aneel_mmgd", json.dumps(rec, ensure_ascii=False), hash_)
         )
@@ -77,8 +79,16 @@ def sync_aneel(db_path, max_records):
             print(f"  {count} registros...")
             conn.commit()
     conn.commit()
+    raw_total = conn.execute("SELECT COUNT(*) FROM mmgd_raw").fetchone()[0]
+    print(f"✅ {count} novos registros ANEEL (raw total: {raw_total:,})")
+    
+    fato_antes = conn.execute("SELECT COUNT(*) FROM mmgd_fato").fetchone()[0]
+    print(f"🔄 Populando mmgd_fato (já existem {fato_antes:,})...")
+    result = populate_mmgd_fato(conn)
+    fato_depois = conn.execute("SELECT COUNT(*) FROM mmgd_fato").fetchone()[0]
+    print(f"✅ mmgd_fato: {fato_depois:,} registros (+{fato_depois - fato_antes:,})")
+    
     conn.close()
-    print(f"✅ {count} registros ANEEL salvos")
 
 def sync_ons(db_path, days):
     """Sincroniza ONS usando fetch_recent_window."""

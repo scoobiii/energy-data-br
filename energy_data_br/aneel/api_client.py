@@ -55,10 +55,10 @@ def _download_snapshot(url: str, retries: int = 3) -> Path:
     raise AneelApiError(f"Download falhou após {retries} tentativas: {last_err}")
 
 
-def fetch_schema(resource_id: str | None = None) -> list[dict]:
     """Introspecção real do CSV: lê o header do ZIP, sem hardcode de campo."""
     import zipfile
-    zip_path = _download_snapshot(_get_latest_zip_url())
+    if zip_path is None:
+        zip_path = _download_snapshot(_get_latest_zip_url())
     with zipfile.ZipFile(zip_path) as zf:
         csv_name = next(n for n in zf.namelist() if n.lower().endswith(".csv"))
         with zf.open(csv_name) as raw:
@@ -67,7 +67,7 @@ def fetch_schema(resource_id: str | None = None) -> list[dict]:
     return [{"id": f.strip('"'), "type": "text"} for f in fields]
 
 
-def iter_records(
+def iter_records(zip_path=None, page_size: int = 5000, max_records: int | None = None, on_page=None) -> Iterator[dict]:
     zip_path=None,
     page_size: int = 5000,
     max_records: int | None = None,
@@ -75,6 +75,7 @@ def iter_records(
 ) -> Iterator[dict]:
     """Streaming real do CSV dentro do ZIP."""
     import zipfile
+    if zip_path is None:
     if zip_path is None:
         zip_path = _download_snapshot(_get_latest_zip_url())
     total = 0
