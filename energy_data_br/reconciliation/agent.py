@@ -167,10 +167,9 @@ def fetch_ons_carga_oficial(area: str, data_inicio: str, data_fim: str) -> list[
                     f"(código de área pode estar errado ou dado ainda não consolidado)"
                 )
                 return []
-            # Se a resposta for um dict com chave "resultado" ou "data", extrai a lista
             if isinstance(data, dict):
                 return data.get("resultado", data.get("data", []))
-            return data  # já é lista
+            return data
         except requests.exceptions.ConnectionError as e:
             error_str = str(e)
             if "NameResolutionError" in error_str or "Failed to resolve" in error_str:
@@ -196,8 +195,6 @@ def check_carga_drift(conn: sqlite3.Connection, dias: int, areas: list[str]) -> 
             area, data_inicio.isoformat(), data_fim.isoformat()
         )
         if not oficiais:
-            # Se retornou array vazio, pode ser problema de código de área ou dados não publicados.
-            # Registramos como "atencao" ao invés de "fetch_falhou" porque a requisição em si funcionou.
             divergencias.append(Divergence(
                 tipo="fetch_vazio",
                 chave=area,
@@ -217,16 +214,23 @@ def check_carga_drift(conn: sqlite3.Connection, dias: int, areas: list[str]) -> 
         for r in rows:
             try:
                 payload = json.loads(r["data_json"])
-                ts = payload.get("din_referencia") or payload.get("data") or payload.get("dat_referencia")
-                val = payload.get("val_cargaglobal") or payload.get("valor") or payload.get("val_carga")
+                ts = (payload.get("din_referenciautc") or
+                      payload.get("din_referencia") or
+                      payload.get("dat_referencia"))
+                val = (payload.get("val_cargaglobal") or
+                       payload.get("valor") or
+                       payload.get("val_carga"))
                 if ts is not None and val is not None:
                     local_by_ts[ts] = val
             except (json.JSONDecodeError, AttributeError):
                 continue
 
         for registro in oficiais:
-            ts = registro.get("din_referencia") or registro.get("dat_referencia")
-            val_oficial = registro.get("val_cargaglobal") or registro.get("val_carga")
+            ts = (registro.get("din_referenciautc") or
+                  registro.get("din_referencia") or
+                  registro.get("dat_referencia"))
+            val_oficial = (registro.get("val_cargaglobal") or
+                           registro.get("val_carga"))
             if ts is None or val_oficial is None:
                 continue
             val_local = local_by_ts.get(ts)
