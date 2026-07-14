@@ -381,7 +381,65 @@ class EnergyAPIHandler(BaseHTTPRequestHandler):
             self.send_file(str(WEB_DIR / 'treemap.html'))
 
         # === 404 ===
-        else:
+        elif path == '/iot/medicao':
+            if self.command != 'POST':
+                self.send_json({'error': 'Use POST'}, 405)
+                return
+            length = int(self.headers.get('Content-Length', 0))
+            body = self.rfile.read(length)
+            data = json.loads(body)
+            try:
+                from energy_data_br.iot import processar_medicao, adaptar_payload_generico
+                params = adaptar_payload_generico(data)
+                medicao_id = processar_medicao(**params)
+                self.send_json({'medicao_id': medicao_id, 'status': 'processada'})
+            except Exception as e:
+                self.send_json({'error': str(e)}, 400)
+
+        elif path == '/iot/saldo':
+            params = dict(urllib.parse.parse_qsl(parsed.query))
+            cliente_id = int(params.get('cliente_id', 0))
+            if cliente_id <= 0:
+                self.send_json({'error': 'cliente_id obrigatório'}, 400)
+                return
+            conn = get_db_connection()
+            # Saldo do crédito
+            credito = conn.execute("""
+                SELECT saldo_kwh, valor_unitario_rs, data_vencimento
+                FROM credito_excedente
+                WHERE cliente_id = ? AND data_vencimento > datetime('now')
+                ORDER BY data_vencimento ASC LIMIT 1
+            """, (cliente_id,)).fetchone()
+            # Última medição
+            ultima_medicao = conn.execute("""
+                SELECT timestamp, geracao_kw, consumo_kw, bateria_soc
+                FROM medicao_iot
+                WHERE cliente_id = ?
+                ORDER BY timestamp DESC LIMIT 1
+            """, (cliente_id,)).fetchone()
+            conn.close()
+            resultado = {
+                'cliente_id': cliente_id,
+                'saldo_kwh': credito['saldo_kwh'] if credito else 0,
+                'valor_unitario_rs': credito['valor_unitario_rs'] if credito else None,
+                'ultima_medicao': dict(ultima_medicao) if ultima_medicao else None
+            }
+            self.send_json(resultado)
+
+        elif path == '/iot/medicao' and self.command == 'GET':
+            # Suporte a GET para simulação (opcional)
+            params = dict(urllib.parse.parse_qsl(parsed.query))
+            cliente_id = int(params.get('cliente_id', 1))
+            geracao = float(params.get('geracao', 5.0))
+            consumo = float(params.get('consumo', 2.0))
+            from energy_data_br.iot import processar_medicao
+            medicao_id = processar_medicao(
+                cliente_id=cliente_id,
+                timestamp=datetime.utcnow().isoformat(),
+                geracao_kw=geracao,
+                consumo_kw=consumo
+            )
+            self.send_json({'medicao_id': medicao_id, 'status': 'processada (GET simulação)'})
             self.send_json({"error": "Endpoint não encontrado"}, 404)
 
     # ====== MÉTODO POST (TOKENIZAÇÃO) ======
@@ -403,6 +461,17 @@ class EnergyAPIHandler(BaseHTTPRequestHandler):
                 )
                 self.send_json({'transacao_id': transacao_id, 'status': 'venda_realizada'})
             except TokenizacaoError as e:
+                self.send_json({'error': str(e)}, 400)
+        elif path == '/iot/medicao':
+            length = int(self.headers.get('Content-Length', 0))
+            body = self.rfile.read(length)
+            data = json.loads(body)
+            try:
+                from energy_data_br.iot import processar_medicao, adaptar_payload_generico
+                params = adaptar_payload_generico(data)
+                medicao_id = processar_medicao(**params)
+                self.send_json({'medicao_id': medicao_id, 'status': 'processada'})
+            except Exception as e:
                 self.send_json({'error': str(e)}, 400)
         else:
             self.send_json({"error": "Endpoint não encontrado"}, 404)
