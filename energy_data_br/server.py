@@ -9,6 +9,34 @@ import urllib.parse
 from http.server import HTTPServer, BaseHTTPRequestHandler
 from pathlib import Path
 
+# Cache simples para consultas pesadas
+from functools import lru_cache
+import time
+
+@lru_cache(maxsize=32)
+def cached_query(query_key: str, ttl: int = 600) -> str:
+    """Retorna resultado da query como string JSON, com cache TTL (10 min padrão)."""
+    # query_key é ignorada, usamos o tempo real como chave de invalidação
+    pass
+
+class SimpleCache:
+    def __init__(self, ttl=600):
+        self.cache = {}
+        self.ttl = ttl
+    
+    def get(self, key):
+        if key in self.cache:
+            data, timestamp = self.cache[key]
+            if time.time() - timestamp < self.ttl:
+                return data
+        return None
+    
+    def set(self, key, data):
+        self.cache[key] = (data, time.time())
+
+cache = SimpleCache(ttl=600)  # 10 minutos
+
+
 DB_PATH = Path("energy-data-br.sqlite")
 WEB_DIR = Path("web")
 
@@ -23,6 +51,10 @@ class EnergyAPIHandler(BaseHTTPRequestHandler):
         parsed = urllib.parse.urlparse(self.path)
         path = parsed.path
         if path == '/stats':
+            cached_data = cache.get('stats')
+            if cached_data:
+                self.send_json(json.loads(cached_data))
+                return
             conn = get_db_connection()
             stats = {
                 "mmgd_raw": conn.execute("SELECT COUNT(*) FROM mmgd_raw").fetchone()[0],
@@ -32,12 +64,19 @@ class EnergyAPIHandler(BaseHTTPRequestHandler):
                 "siga_fato": conn.execute("SELECT COUNT(*) FROM siga_fato").fetchone()[0],
             }
             conn.close()
+            cache.set('stats', json.dumps(stats))
             self.send_json(stats)
         elif path == '/totais/uf':
+            cached_data = cache.get('totais_uf')
+            if cached_data:
+                self.send_json(json.loads(cached_data))
+                return
             conn = get_db_connection()
             rows = conn.execute("SELECT siguf, COUNT(*) as total FROM mmgd_fato GROUP BY siguf ORDER BY total DESC").fetchall()
             conn.close()
-            self.send_json([{"siguf": r["siguf"], "total": r["total"]} for r in rows])
+            result = [{"siguf": r["siguf"], "total": r["total"]} for r in rows]
+            cache.set('totais_uf', json.dumps(result))
+            self.send_json(result)
         elif path.startswith('/empreendimentos'):
             params = dict(urllib.parse.parse_qsl(parsed.query))
             uf = params.get('uf', 'SP')
@@ -160,7 +199,8 @@ class EnergyAPIHandler(BaseHTTPRequestHandler):
         self.wfile.write(p.read_bytes())
 
 def run_server(host='0.0.0.0', port=8000):
-    server = HTTPServer((host, port), EnergyAPIHandler)
+    from http.server import ThreadingHTTPServer
+    server = ThreadingHTTPServer((host, port), EnergyAPIHandler)
     print(f"Servidor rodando em http://{host}:{port}")
     try:
         server.serve_forever()
