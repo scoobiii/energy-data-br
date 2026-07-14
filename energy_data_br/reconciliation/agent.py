@@ -47,7 +47,7 @@ CARGA_TOLERANCE_PCT = 0.5
 ANEEL_MMGD_PACKAGE = "relacao-de-empreendimentos-de-geracao-distribuida"
 
 # áreas de carga a validar (códigos reais conforme API)
-DEFAULT_AREAS = ["SE", "S", "NE", "N", "CO", "SECO"]
+DEFAULT_AREAS = ["S", "NE", "N", "SIN"]
 
 logging.basicConfig(
     level=logging.INFO,
