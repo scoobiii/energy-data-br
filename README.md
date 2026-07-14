@@ -15,7 +15,7 @@ Projeto da [MEx Energia](https://mex.eco.br), usado internamente para mapear opo
 ## 📦 O que é
 
 - **Fontes oficiais**:
-  - **ANEEL MMGD**: Micro e Minigeração Distribuída – snapshot ZIP (4,53M registros).
+  - **ANEEL MMGD**: Micro e Minigeração Distribuída – snapshot ZIP (~5,9M registros (variável)).
   - **ANEEL SIGA**: Sistema de Informações de Geração – usinas centralizadas (25k registros).
   - **ONS apicarga**: Carga semi‑horária (atualização diária).
   - **ONS DESSEM**: Balanço energético detalhado (76.877 registros, 414 dias).
