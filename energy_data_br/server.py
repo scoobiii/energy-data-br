@@ -1,9 +1,10 @@
 """API HTTP stdlib puro para energy-data-br – zero dependências."""
+from pathlib import Path
+WEB_DIR = Path(__file__).parent.parent / 'web'
 import json
 import sqlite3
 from http.server import HTTPServer, BaseHTTPRequestHandler
 from urllib.parse import urlparse, parse_qs
-from pathlib import Path
 
 DB_PATH = "/storage/emulated/0/energy-data-br.sqlite"
 
@@ -33,7 +34,12 @@ class EnergyAPIHandler(BaseHTTPRequestHandler):
                     "/totais/uf",
                     "/totais/fonte",
                     "/empreendimentos?uf=SP&limit=10",
-                    "/ons/carga?area=S&limit=10"
+                    "/ons/carga?area=S&limit=10",
+                    "/siga?limit=10",
+                    "/siga/geojson?limit=100",
+                    "/totais/temporal?days=30",
+                    "/growth?limit=30",
+                    "/dashboard"
                 ]
             })
         elif path == '/stats':
@@ -46,6 +52,23 @@ class EnergyAPIHandler(BaseHTTPRequestHandler):
             self.handle_empreendimentos(query)
         elif path == '/ons/carga':
             self.handle_ons_carga(query)
+        elif path == '/siga':
+            self.handle_siga(query)
+        elif path == '/siga/geojson':
+            self.handle_siga_geojson(query)
+        elif path == '/totais/temporal':
+            self.handle_temporal(query)
+        elif path == '/growth':
+            self.handle_growth(query)
+        elif path == '/treemap/brasil':
+            self.handle_treemap_brasil(query)
+        elif path.startswith('/treemap/uf/'):
+            uf = path.split('/')[-1]
+            self.handle_treemap_uf(uf, query)
+        elif path == '/dashboard':
+            self.send_file(str(WEB_DIR / 'dashboard.html'))
+        elif path == '/treemap':
+            self.send_file(str(WEB_DIR / 'treemap.html'))
         else:
             self.send_json({"error": "Endpoint não encontrado"}, 404)
 
@@ -57,17 +80,28 @@ class EnergyAPIHandler(BaseHTTPRequestHandler):
         self.end_headers()
         self.wfile.write(body)
 
+    def send_file(self, path):
+        try:
+            with open(path, 'rb') as f:
+                self.send_response(200)
+                self.send_header('Content-Type', 'text/html')
+                self.end_headers()
+                self.wfile.write(f.read())
+        except FileNotFoundError:
+            self.send_json({"error": "File not found"}, 404)
+
     def handle_stats(self):
         conn = get_db_connection()
-        mmgd_raw = conn.execute("SELECT COUNT(*) FROM mmgd_raw").fetchone()[0]
-        mmgd_fato = conn.execute("SELECT COUNT(*) FROM mmgd_fato").fetchone()[0]
-        ons_carga = conn.execute("SELECT COUNT(*) FROM ons_carga").fetchone()[0]
+        tables = ['mmgd_raw', 'mmgd_fato', 'ons_carga', 'dessem_detalhe', 'siga_fato']
+        stats = {}
+        for table in tables:
+            try:
+                count = conn.execute(f"SELECT COUNT(*) FROM {table}").fetchone()[0]
+                stats[table] = count
+            except sqlite3.OperationalError:
+                stats[table] = None
         conn.close()
-        self.send_json({
-            "mmgd_raw": mmgd_raw,
-            "mmgd_fato": mmgd_fato,
-            "ons_carga": ons_carga
-        })
+        self.send_json(stats)
 
     def handle_totais_uf(self):
         conn = get_db_connection()
@@ -90,7 +124,7 @@ class EnergyAPIHandler(BaseHTTPRequestHandler):
             FROM mmgd_fato
             WHERE dscfontegeracao != ''
             GROUP BY dscfontegeracao
-            ORDER BY potencia_total_kw DESC
+            ORDER BY empreendimentos DESC
         """).fetchall()
         conn.close()
         self.send_json([dict(row) for row in rows])
@@ -133,10 +167,173 @@ class EnergyAPIHandler(BaseHTTPRequestHandler):
         conn.close()
         self.send_json([dict(row) for row in rows])
 
+    def handle_siga(self, query):
+        tipo = query.get('tipo', [''])[0].upper()
+        uf = query.get('uf', [''])[0].upper()
+        limit = min(int(query.get('limit', ['100'])[0]), 5000)
+        offset = int(query.get('offset', ['0'])[0])
+
+        conn = get_db_connection()
+        sql = """SELECT nome_empreendimento, uf, tipo_geracao,
+                        potencia_outorgada_kw, municipios
+                 FROM siga_fato WHERE 1=1"""
+        params = []
+        if tipo:
+            sql += " AND tipo_geracao = ?"
+            params.append(tipo)
+        if uf:
+            sql += " AND uf = ?"
+            params.append(uf)
+        sql += " ORDER BY potencia_outorgada_kw DESC LIMIT ? OFFSET ?"
+        params.extend([limit, offset])
+        rows = conn.execute(sql, params).fetchall()
+        conn.close()
+        self.send_json([dict(row) for row in rows])
+
+    def handle_siga_geojson(self, query):
+        limit = min(int(query.get('limit', ['100'])[0]), 5000)
+        conn = get_db_connection()
+        rows = conn.execute("""
+            SELECT 
+                nome_empreendimento, uf, tipo_geracao,
+                potencia_outorgada_kw, lat, lon
+            FROM siga_fato
+            WHERE lat IS NOT NULL AND lat != 0
+              AND lon IS NOT NULL AND lon != 0
+            ORDER BY potencia_outorgada_kw DESC
+            LIMIT ?
+        """, (limit,)).fetchall()
+        conn.close()
+        features = [{
+            "type": "Feature",
+            "geometry": {"type": "Point", "coordinates": [row['lon'], row['lat']]},
+            "properties": dict(row)
+        } for row in rows]
+        self.send_json({"type": "FeatureCollection", "features": features})
+
+    def handle_temporal(self, query):
+        days = min(int(query.get('days', ['30'])[0]), 90)
+        conn = get_db_connection()
+        rows = conn.execute("""
+            SELECT dat_referencia, SUM(val_cargaglobal) as carga_total
+            FROM ons_carga
+            WHERE dat_referencia >= date('now', ?)
+            GROUP BY dat_referencia
+            ORDER BY dat_referencia
+        """, (f'-{days} days',)).fetchall()
+        conn.close()
+        self.send_json([dict(row) for row in rows])
+
+    def handle_growth(self, query):
+        limit = min(int(query.get('limit', ['30'])[0]), 365)
+        conn = get_db_connection()
+        rows = conn.execute("""
+            SELECT data, mmgd_ativos, mmgd_potencia_kw,
+                   siga_ativos, siga_potencia_kw,
+                   ons_carga_media_mw, total_registros
+            FROM growth_log
+            ORDER BY data DESC
+            LIMIT ?
+        """, (limit,)).fetchall()
+        conn.close()
+        self.send_json([dict(row) for row in rows])
+
+    def handle_treemap_brasil(self, query):
+        """Treemap Brasil > UF > Fonte (estilo Finviz), a partir de mmgd_fato."""
+        nivel = query.get('nivel', ['uf_fonte'])[0]
+        conn = get_db_connection()
+
+        if nivel == 'fonte':
+            rows = conn.execute("""
+                SELECT dscfontegeracao as fonte,
+                       SUM(potencia_instalada_kw) as valor_kw,
+                       COUNT(*) as empreendimentos
+                FROM mmgd_fato
+                WHERE dscfontegeracao != ''
+                GROUP BY dscfontegeracao
+                ORDER BY valor_kw DESC
+            """).fetchall()
+            conn.close()
+            children = [
+                {"name": r["fonte"], "value": r["valor_kw"], "empreendimentos": r["empreendimentos"]}
+                for r in rows
+            ]
+            self.send_json({"name": "Brasil", "children": children})
+            return
+
+        if nivel == 'uf':
+            rows = conn.execute("""
+                SELECT siguf as uf,
+                       SUM(potencia_instalada_kw) as valor_kw,
+                       COUNT(*) as empreendimentos
+                FROM mmgd_fato
+                WHERE siguf != ''
+                GROUP BY siguf
+                ORDER BY valor_kw DESC
+            """).fetchall()
+            conn.close()
+            children = [
+                {"name": r["uf"], "value": r["valor_kw"], "empreendimentos": r["empreendimentos"]}
+                for r in rows
+            ]
+            self.send_json({"name": "Brasil", "children": children})
+            return
+
+        rows = conn.execute("""
+            SELECT siguf as uf, dscfontegeracao as fonte,
+                   SUM(potencia_instalada_kw) as valor_kw,
+                   COUNT(*) as empreendimentos
+            FROM mmgd_fato
+            WHERE siguf != '' AND dscfontegeracao != ''
+            GROUP BY siguf, dscfontegeracao
+            ORDER BY siguf, valor_kw DESC
+        """).fetchall()
+        conn.close()
+
+        por_uf = {}
+        for r in rows:
+            por_uf.setdefault(r["uf"], []).append({
+                "name": r["fonte"], "value": r["valor_kw"], "empreendimentos": r["empreendimentos"]
+            })
+
+        children = [
+            {"name": uf, "children": fontes}
+            for uf, fontes in sorted(por_uf.items(), key=lambda kv: -sum(f["value"] for f in kv[1]))
+        ]
+        self.send_json({"name": "Brasil", "children": children})
+
+    def handle_treemap_uf(self, uf, query):
+        """Drill-down: UF > maiores usinas SIGA (centralizadas) + MMGD (distribuida)."""
+        limit = min(int(query.get('limit', ['100'])[0]), 1000)
+        fonte_tipo = query.get('tipo', ['siga'])[0]
+        conn = get_db_connection()
+
+        if fonte_tipo == 'mmgd':
+            rows = conn.execute("""
+                SELECT cod_empreendimento as name, potencia_instalada_kw as value,
+                       dscfontegeracao as fonte
+                FROM mmgd_fato
+                WHERE siguf = ?
+                ORDER BY potencia_instalada_kw DESC
+                LIMIT ?
+            """, (uf.upper(), limit)).fetchall()
+        else:
+            rows = conn.execute("""
+                SELECT nome_empreendimento as name, potencia_outorgada_kw as value,
+                       tipo_geracao as fonte
+                FROM siga_fato
+                WHERE uf = ?
+                ORDER BY potencia_outorgada_kw DESC
+                LIMIT ?
+            """, (uf.upper(), limit)).fetchall()
+
+        conn.close()
+        self.send_json({"name": uf.upper(), "children": [dict(r) for r in rows]})
+
 def run_server(host='0.0.0.0', port=8000):
     server = HTTPServer((host, port), EnergyAPIHandler)
     print(f"🚀 Servidor rodando em http://{host}:{port}")
-    print(f"📊 Endpoint /stats, /totais/uf, /totais/fonte, /empreendimentos, /ons/carga")
+    print("📊 Endpoints: /stats, /totais/uf, /totais/fonte, /empreendimentos, /ons/carga, /siga, /siga/geojson, /totais/temporal, /growth, /dashboard")
     try:
         server.serve_forever()
     except KeyboardInterrupt:
