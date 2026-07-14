@@ -61,3 +61,14 @@ def populate_mmgd_fato(conn: sqlite3.Connection) -> dict:
 
     log.info("populate_mmgd_fato: concluído")
     return {"total": total, "inserted": inserted}
+
+
+if __name__ == '__main__':
+    import sys
+    logging.basicConfig(level=logging.INFO, format='%(asctime)s %(message)s',
+                         handlers=[logging.FileHandler('logs/pop_mmgd_fato.log'), logging.StreamHandler()])
+    conn = sqlite3.connect("/storage/emulated/0/energy-data-br.sqlite")
+    try:
+        populate_mmgd_fato(conn)
+    finally:
+        conn.close()

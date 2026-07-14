@@ -1,267 +1,129 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-br">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>MMGD Brasil — MEx Energia</title>
+<title>Energy Data BR — Treemap</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.9.0/d3.min.js"></script>
 <style>
-  :root{
-    --bg:#0a0e0d; --panel:#111613; --line:#1e2622; --text:#d7e0da; --dim:#7c8b83;
-    --ufv:#2fbf71; --eol:#38bdf8; --cgh:#8b7bd8; --ute:#f2994a; --outra:#94a3b8;
-    --up:#2fbf71; --mono:'JetBrains Mono','SF Mono','Consolas',monospace;
-    --disp:'IBM Plex Sans',system-ui,sans-serif;
-  }
-  *{box-sizing:border-box;}
-  body{margin:0;background:var(--bg);color:var(--text);font-family:var(--disp);}
-  header{
-    display:flex;align-items:baseline;gap:14px;padding:10px 16px;
-    border-bottom:1px solid var(--line);background:#0d1210;
-    position:sticky;top:0;z-index:10;flex-wrap:wrap;
-  }
-  header h1{font-size:15px;margin:0;letter-spacing:.04em;font-weight:600;color:#eef3ef;}
-  header h1 span{color:var(--dim);font-weight:400;}
-  #breadcrumb{font-family:var(--mono);font-size:12px;color:var(--dim);}
-  #breadcrumb b{color:var(--ufv);cursor:pointer;}
-  #stats{margin-left:auto;font-family:var(--mono);font-size:11px;color:var(--dim);display:flex;gap:16px;}
-  #stats b{color:var(--text);}
-  #legend{display:flex;gap:10px;padding:8px 16px;font-family:var(--mono);font-size:11px;flex-wrap:wrap;border-bottom:1px solid var(--line);}
-  .lg{display:flex;align-items:center;gap:5px;}
-  .sw{width:9px;height:9px;border-radius:2px;}
-  #tree{position:relative;width:100%;height:calc(100vh - 92px);padding:6px;}
-  .tile{
-    position:absolute;box-sizing:border-box;border:1px solid var(--bg);
-    overflow:hidden;cursor:pointer;transition:filter .12s ease, transform .12s ease;
-    display:flex;flex-direction:column;justify-content:flex-end;padding:4px 6px;
-  }
-  .tile:hover{filter:brightness(1.22);z-index:5;}
-  .tile .name{font-weight:700;font-size:12px;line-height:1.15;color:#0a0e0d;text-shadow:0 0 0 transparent;}
-  .tile .val{font-family:var(--mono);font-size:11px;color:rgba(10,14,13,.75);}
-  .tile.small .name,.tile.small .val{display:none;}
-  #empty{color:var(--dim);font-family:var(--mono);font-size:12px;padding:24px;}
-  #tooltip{
-    position:fixed;pointer-events:none;background:#0d1210;border:1px solid var(--line);
-    padding:8px 10px;border-radius:4px;font-family:var(--mono);font-size:11px;
-    color:var(--text);z-index:50;display:none;box-shadow:0 4px 16px rgba(0,0,0,.5);
-    min-width:170px;
-  }
-  #tooltip .t-name{font-weight:700;color:#fff;font-size:12px;margin-bottom:3px;}
-  #tooltip .t-row{display:flex;justify-content:space-between;gap:14px;color:var(--dim);}
-  #tooltip .t-row b{color:var(--text);}
-  #loadfile{font-family:var(--mono);font-size:11px;color:var(--dim);}
-  #loadfile input{font-family:var(--mono);font-size:11px;}
+  :root { --bg:#0f1115; --border:#262b38; --text:#e6e8ee; --muted:#8a90a2; }
+  * { box-sizing: border-box; }
+  body { margin:0; background:var(--bg); color:var(--text); font-family:-apple-system,"Segoe UI",Roboto,Arial,sans-serif; }
+  header { padding:16px 20px; border-bottom:1px solid var(--border); display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px; }
+  header h1 { font-size:18px; margin:0; font-weight:600; }
+  .controls { display:flex; gap:8px; align-items:center; font-size:13px; padding:10px 20px; border-bottom:1px solid var(--border); flex-wrap:wrap; }
+  .controls button { background:#1d212c; border:1px solid var(--border); color:var(--text); padding:6px 12px; border-radius:6px; cursor:pointer; font-size:12px; }
+  .controls button.active { background:#3498db; border-color:#3498db; }
+  #breadcrumb { color:var(--muted); font-size:12px; }
+  #breadcrumb span { cursor:pointer; color:#3498db; }
+  #treemap { width:100%; height:calc(100vh - 120px); position:relative; }
+  .node { position:absolute; overflow:hidden; border:1px solid #0f1115; display:flex; flex-direction:column; justify-content:center; align-items:center; padding:2px; cursor:pointer; transition:filter .15s; }
+  .node:hover { filter:brightness(1.15); }
+  .node .name { font-weight:700; font-size:13px; text-align:center; line-height:1.2; }
+  .node .value { font-size:11px; opacity:.85; }
+  .tooltip { position:fixed; background:#1d212c; border:1px solid var(--border); border-radius:6px; padding:8px 10px; font-size:12px; pointer-events:none; display:none; z-index:10; }
+  a.nav { color:#3498db; text-decoration:none; font-size:13px; }
+  .loading { color:var(--muted); padding:40px; text-align:center; }
 </style>
 </head>
 <body>
-
 <header>
-  <h1>MMGD BRASIL <span>· geração distribuída ANEEL</span></h1>
-  <div id="breadcrumb"><b onclick="drillTo(0)">Brasil</b></div>
-  <div id="stats">
-    <div>empreendimentos: <b id="stat-qtd">–</b></div>
-    <div>potência total: <b id="stat-mw">–</b> MW</div>
-    <div>gerado em: <b id="stat-gen">–</b></div>
+  <div>
+    <h1>🗺️ Energy Data BR — Treemap</h1>
+    <div id="breadcrumb">Brasil</div>
   </div>
+  <a class="nav" href="/dashboard">← Ver Dashboard</a>
 </header>
-
-<div id="legend">
-  <div class="lg"><span class="sw" style="background:var(--ufv)"></span>UFV (fotovoltaica)</div>
-  <div class="lg"><span class="sw" style="background:var(--eol)"></span>EOL (eólica)</div>
-  <div class="lg"><span class="sw" style="background:var(--cgh)"></span>CGH (hídrica)</div>
-  <div class="lg"><span class="sw" style="background:var(--ute)"></span>UTE (térmica)</div>
-  <div class="lg"><span class="sw" style="background:var(--outra)"></span>outra</div>
-  <div class="lg" style="margin-left:auto" id="loadfile">
-    arquivo: <input type="file" id="fileInput" accept="application/json">
-  </div>
+<div class="controls">
+  <span style="color:var(--muted)">Agrupar por:</span>
+  <button data-nivel="uf_fonte" class="active">UF → Fonte</button>
+  <button data-nivel="fonte">Só Fonte</button>
+  <button data-nivel="uf">Só UF</button>
 </div>
-
-<div id="tree"><div id="empty">Carregando aneel_mmgd_treemap.json ...</div></div>
-<div id="tooltip"></div>
-
+<div id="treemap"><div class="loading">Carregando treemap…</div></div>
+<div class="tooltip" id="tooltip"></div>
 <script>
-const FONTE_COLOR = { UFV:'var(--ufv)', EOL:'var(--eol)', CGH:'var(--cgh)', UTE:'var(--ute)', OUTRA:'var(--outra)' };
-const UF_PALETTE = ['#2fbf71','#38bdf8','#8b7bd8','#f2994a','#e0587a','#c9d94a','#4ade80','#60a5fa'];
+const CORES = ['#2ecc71','#3498db','#f1c40f','#e67e22','#9b59b6','#1abc9c','#e74c3c','#95a5a6','#16a085','#2980b9'];
+const container = document.getElementById('treemap');
+const tooltip = document.getElementById('tooltip');
+const breadcrumb = document.getElementById('breadcrumb');
+let nivelAtual = 'uf_fonte';
+let ufAberta = null;
 
-let ROOT = null;      // full tree as loaded
-let STACK = [];        // drill-down path of nodes (excluding root's own children view)
-let CURRENT = null;    // node whose .children are currently rendered
-
-// ---- squarified treemap layout ----
-function layout(node, x, y, w, h) {
-  const children = (node.children || []).slice().sort((a,b)=>b.value-a.value).filter(c=>c.value>0);
-  const total = children.reduce((s,c)=>s+c.value,0) || 1;
-  const rects = [];
-  let cx = x, cy = y, cw = w, ch = h;
-  let row = [], rowSum = 0;
-
-  function worst(rowArr, rowSum, sideLen) {
-    if (!rowArr.length) return Infinity;
-    const areaTotal = rowArr.reduce((s,c)=>s + (c.value/total)*w*h, 0);
-    let maxA=-Infinity, minA=Infinity;
-    rowArr.forEach(c=>{
-      const a = (c.value/total)*w*h;
-      maxA=Math.max(maxA,a); minA=Math.min(minA,a);
-    });
-    const s2 = sideLen*sideLen;
-    return Math.max((s2*maxA)/(areaTotal*areaTotal), (areaTotal*areaTotal)/(s2*minA));
-  }
-
-  let i = 0;
-  while (i < children.length) {
-    const c = children[i];
-    const sideLen = Math.min(cw, ch);
-    const testRow = row.concat([c]);
-    if (worst(testRow, rowSum+c.value, sideLen) <= worst(row, rowSum, sideLen) || row.length===0) {
-      row.push(c); rowSum += c.value; i++;
-    } else {
-      placeRow(row, rowSum);
-      row = []; rowSum = 0;
-    }
-  }
-  if (row.length) placeRow(row, rowSum);
-
-  function placeRow(rowArr, rowSum) {
-    const areaTotal = rowArr.reduce((s,c)=>s + (c.value/total)*w*h, 0);
-    if (cw >= ch) {
-      const rowW = areaTotal / ch;
-      let oy = cy;
-      rowArr.forEach(c=>{
-        const a = (c.value/total)*w*h;
-        const rh = a / rowW;
-        rects.push({node:c, x:cx, y:oy, w:rowW, h:rh});
-        oy += rh;
-      });
-      cx += rowW; cw -= rowW;
-    } else {
-      const rowH = areaTotal / cw;
-      let ox = cx;
-      rowArr.forEach(c=>{
-        const a = (c.value/total)*w*h;
-        const rw = a / rowH;
-        rects.push({node:c, x:ox, y:cy, w:rw, h:rowH});
-        ox += rw;
-      });
-      cy += rowH; ch -= rowH;
-    }
-  }
-  return rects;
+function corPara(nome) {
+  let hash = 0;
+  for (let i=0;i<nome.length;i++) hash = nome.charCodeAt(i) + ((hash<<5)-hash);
+  return CORES[Math.abs(hash) % CORES.length];
+}
+function formatarKw(v) {
+  if (v >= 1e6) return (v/1e6).toFixed(1) + ' GW';
+  if (v >= 1e3) return (v/1e3).toFixed(1) + ' MW';
+  return v.toFixed(0) + ' kW';
 }
 
-function colorFor(node, depth) {
-  if (depth === 1) { // UF level, first drill: color by UF palette (index-based)
-    const idx = ROOT.children.findIndex(c=>c.name===node.name);
-    return UF_PALETTE[idx % UF_PALETTE.length];
-  }
-  if (node.fonte && FONTE_COLOR[node.fonte]) return FONTE_COLOR[node.fonte].replace('var(--','').replace(')','') ? getCssVar(FONTE_COLOR[node.fonte]) : '#94a3b8';
-  return getCssVar('var(--outra)');
-}
-function getCssVar(v){
-  const m = v.match(/--([a-z]+)/);
-  return getComputedStyle(document.documentElement).getPropertyValue('--'+m[1]).trim();
-}
-
-function render(node, depth) {
-  const container = document.getElementById('tree');
+function desenhar(data) {
   container.innerHTML = '';
-  const kids = (node.children||[]).filter(c=>c.value>0);
-  if (!kids.length) {
-    container.innerHTML = '<div id="empty">Sem dados neste nível.</div>';
-    return;
-  }
-  const rects = layout(node, 0, 0, container.clientWidth, container.clientHeight);
-  rects.forEach(r=>{
+  const w = container.clientWidth, h = container.clientHeight;
+  const root = d3.hierarchy(data).sum(d=>d.value||0).sort((a,b)=>b.value-a.value);
+  d3.treemap().size([w,h]).paddingInner(2).paddingOuter(2)(root);
+  const nodes = root.leaves();
+
+  nodes.forEach(d => {
     const el = document.createElement('div');
-    el.className = 'tile' + ((r.w<46||r.h<26) ? ' small':'');
-    el.style.left = r.x+'px'; el.style.top = r.y+'px';
-    el.style.width = Math.max(r.w-2,0)+'px'; el.style.height = Math.max(r.h-2,0)+'px';
-    el.style.background = colorFor(r.node, depth);
-    const pct = ((r.node.value / (node.value||1)) * 100).toFixed(1);
-    el.innerHTML = `<div class="name">${r.node.name}</div><div class="val">${r.node.value.toFixed(2)} MW · ${pct}%</div>`;
-    el.addEventListener('mousemove', (ev)=>showTooltip(ev, r.node, node));
-    el.addEventListener('mouseleave', hideTooltip);
-    el.addEventListener('click', ()=>{
-      if (r.node.children && r.node.children.length) {
-        STACK.push(node);
-        CURRENT = r.node;
-        renderBreadcrumb();
-        render(CURRENT, depth+1);
-      }
+    el.className = 'node';
+    const largura = d.x1-d.x0, altura = d.y1-d.y0;
+    el.style.left = d.x0+'px'; el.style.top = d.y0+'px';
+    el.style.width = largura+'px'; el.style.height = altura+'px';
+    el.style.background = corPara(d.parent && d.parent.data.name!=='Brasil' ? d.parent.data.name : d.data.name);
+
+    if (largura>40 && altura>24) {
+      el.innerHTML = `<div class="name" style="font-size:${Math.min(16,Math.max(9,largura/8))}px">${d.data.name}</div><div class="value">${formatarKw(d.value)}</div>`;
+    }
+    el.addEventListener('mousemove', (ev) => {
+      tooltip.style.display='block'; tooltip.style.left=(ev.clientX+12)+'px'; tooltip.style.top=(ev.clientY+12)+'px';
+      tooltip.innerHTML = `<b>${d.data.name}</b><br>${formatarKw(d.value)}${d.data.empreendimentos?'<br>'+d.data.empreendimentos.toLocaleString('pt-BR')+' empreendimentos':''}`;
     });
+    el.addEventListener('mouseleave', () => tooltip.style.display='none');
+
+    if (nivelAtual==='uf_fonte' && d.parent && d.parent.data.name!=='Brasil') el.addEventListener('click', () => abrirUF(d.parent.data.name));
+    else if (nivelAtual==='uf') el.addEventListener('click', () => abrirUF(d.data.name));
+
     container.appendChild(el);
   });
 }
 
-function showTooltip(ev, node, parent) {
-  const tt = document.getElementById('tooltip');
-  const pct = ((node.value/(parent.value||1))*100).toFixed(1);
-  tt.innerHTML = `
-    <div class="t-name">${node.name}</div>
-    <div class="t-row"><span>potência</span><b>${node.value.toFixed(3)} MW</b></div>
-    <div class="t-row"><span>empreendimentos</span><b>${node.qtd ?? '–'}</b></div>
-    <div class="t-row"><span>% do pai</span><b>${pct}%</b></div>
-  `;
-  tt.style.display = 'block';
-  tt.style.left = (ev.clientX+14)+'px';
-  tt.style.top = (ev.clientY+14)+'px';
-}
-function hideTooltip(){ document.getElementById('tooltip').style.display='none'; }
-
-function renderBreadcrumb() {
-  const bc = document.getElementById('breadcrumb');
-  const path = [ROOT, ...STACK.slice(1), CURRENT].filter((v,i,a)=>a.indexOf(v)===i);
-  bc.innerHTML = path.map((n,i)=>{
-    const label = n===ROOT ? 'Brasil' : n.name;
-    return `<b onclick="drillTo(${i})">${label}</b>`;
-  }).join(' <span style="color:var(--dim)">/</span> ');
+async function carregarBrasil(nivel) {
+  container.innerHTML = '<div class="loading">Carregando…</div>';
+  breadcrumb.innerHTML = 'Brasil';
+  try {
+    const r = await fetch(`/treemap/brasil?nivel=${nivel}`);
+    if (!r.ok) throw new Error('status '+r.status);
+    desenhar(await r.json());
+  } catch (e) { container.innerHTML = `<div class="loading">Erro: ${e.message}</div>`; }
 }
 
-window.drillTo = function(i) {
-  const path = [ROOT, ...STACK.slice(1), CURRENT].filter((v,idx,a)=>a.indexOf(v)===idx);
-  const target = path[i];
-  STACK = path.slice(0, i);
-  CURRENT = target;
-  renderBreadcrumb();
-  render(CURRENT, i);
-};
-
-function setStats(node) {
-  document.getElementById('stat-qtd').textContent = (node.qtd ?? sumQtd(node)).toLocaleString('pt-BR');
-  document.getElementById('stat-mw').textContent = node.value ? node.value.toFixed(1) : sumVal(node).toFixed(1);
-  document.getElementById('stat-gen').textContent = node.generated_at || '–';
+async function abrirUF(uf) {
+  ufAberta = uf;
+  container.innerHTML = '<div class="loading">Carregando '+uf+'…</div>';
+  breadcrumb.innerHTML = `<span onclick="voltarBrasil()">Brasil</span> / ${uf}`;
+  try {
+    const r = await fetch(`/treemap/uf/${uf}?limit=100`);
+    if (!r.ok) throw new Error('status '+r.status);
+    desenhar(await r.json());
+  } catch (e) { container.innerHTML = `<div class="loading">Erro: ${e.message}</div>`; }
 }
-function sumQtd(n){ return (n.children||[]).reduce((s,c)=>s+(c.qtd||sumQtd(c)),0); }
-function sumVal(n){ return (n.children||[]).reduce((s,c)=>s+(c.value||0),0); }
+function voltarBrasil() { ufAberta = null; carregarBrasil(nivelAtual); }
 
-function boot(tree) {
-  ROOT = tree;
-  ROOT.value = sumVal(ROOT);
-  ROOT.qtd = sumQtd(ROOT);
-  STACK = [];
-  CURRENT = ROOT;
-  renderBreadcrumb();
-  setStats(ROOT);
-  render(ROOT, 0);
-}
-
-window.addEventListener('resize', ()=>{ if(CURRENT) render(CURRENT, STACK.length); });
-
-document.getElementById('fileInput').addEventListener('change', (e)=>{
-  const f = e.target.files[0];
-  if (!f) return;
-  const reader = new FileReader();
-  reader.onload = ev => boot(JSON.parse(ev.target.result));
-  reader.readAsText(f);
+document.querySelectorAll('.controls button').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.controls button').forEach(b=>b.classList.remove('active'));
+    btn.classList.add('active');
+    nivelAtual = btn.dataset.nivel; ufAberta = null;
+    carregarBrasil(nivelAtual);
+  });
 });
-
-// try to auto-load the JSON produced by aneel_mmgd_etl.py when served over http(s)://
-fetch('aneel_mmgd_treemap.json').then(r=>{
-  if (!r.ok) throw new Error('not found');
-  return r.json();
-}).then(boot).catch(()=>{
-  document.getElementById('empty').innerHTML =
-    'Não achei <b>aneel_mmgd_treemap.json</b> ao lado deste arquivo (isso é normal se você abriu direto do disco — file:// bloqueia fetch).<br><br>' +
-    'Use o seletor "arquivo" no canto superior direito para carregar o JSON manualmente,<br>' +
-    'ou sirva a pasta com <code>python3 -m http.server</code> e abra via http://localhost:8000/treemap.html';
-});
+window.addEventListener('resize', () => { if (ufAberta) abrirUF(ufAberta); else carregarBrasil(nivelAtual); });
+carregarBrasil(nivelAtual);
 </script>
 </body>
 </html>

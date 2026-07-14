@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Energy Data BR — Dashboard</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
+<style>
+  :root {
+    --bg: #0f1115; --panel: #161922; --border: #262b38; --text: #e6e8ee; --muted: #8a90a2;
+  }
+  * { box-sizing: border-box; }
+  body { margin:0; background:var(--bg); color:var(--text); font-family:-apple-system,"Segoe UI",Roboto,Arial,sans-serif; }
+  header { padding:16px 20px; border-bottom:1px solid var(--border); display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:8px; }
+  header h1 { font-size:18px; margin:0; font-weight:600; }
+  header .sub { color:var(--muted); font-size:12px; }
+  main { padding:16px; display:grid; gap:16px; grid-template-columns: repeat(auto-fit, minmax(280px,1fr)); }
+  .card { background:var(--panel); border:1px solid var(--border); border-radius:10px; padding:14px 16px; }
+  .card h2 { font-size:13px; text-transform:uppercase; letter-spacing:.04em; color:var(--muted); margin:0 0 10px; }
+  .stats-row { display:grid; grid-template-columns: repeat(auto-fit, minmax(120px,1fr)); gap:10px; grid-column:1/-1; }
+  .stat { background:var(--panel); border:1px solid var(--border); border-radius:10px; padding:14px; text-align:center; }
+  .stat .n { font-size:22px; font-weight:700; }
+  .stat .l { font-size:11px; color:var(--muted); text-transform:uppercase; margin-top:4px; }
+  .full { grid-column:1/-1; }
+  #map { height:380px; border-radius:8px; }
+  table { width:100%; border-collapse:collapse; font-size:13px; }
+  th, td { text-align:left; padding:6px 8px; border-bottom:1px solid var(--border); }
+  th { color:var(--muted); font-weight:500; font-size:11px; text-transform:uppercase; }
+  .loading { color:var(--muted); font-size:13px; padding:20px; text-align:center; }
+  a.nav { color:#3498db; text-decoration:none; font-size:13px; }
+</style>
+</head>
+<body>
+<header>
+  <div>
+    <h1>⚡ Energy Data BR</h1>
+    <div class="sub">Dashboard clássico · MMGD + SIGA + ONS</div>
+  </div>
+  <a class="nav" href="/treemap">Ver Treemap →</a>
+</header>
+<main>
+  <div class="stats-row" id="stats-row"><div class="loading">Carregando estatísticas…</div></div>
+  <div class="card full">
+    <h2>Usinas centralizadas (SIGA)</h2>
+    <div id="map"><div class="loading">Carregando mapa…</div></div>
+  </div>
+  <div class="card">
+    <h2>Geração por fonte (MMGD)</h2>
+    <canvas id="chart-fonte" height="220"></canvas>
+  </div>
+  <div class="card">
+    <h2>Evolução de ativos (growth)</h2>
+    <canvas id="chart-growth" height="220"></canvas>
+  </div>
+  <div class="card full">
+    <h2>Totais por UF</h2>
+    <table id="tabela-uf">
+      <thead><tr><th>UF</th><th>Empreendimentos</th></tr></thead>
+      <tbody><tr><td colspan="2" class="loading">Carregando…</td></tr></tbody>
+    </table>
+  </div>
+</main>
+<script>
+const CORES = ['#2ecc71','#3498db','#f1c40f','#e67e22','#e74c3c','#9b59b6','#1abc9c','#95a5a6'];
+async function getJSON(url) { const r = await fetch(url); if (!r.ok) throw new Error(url+' -> '+r.status); return r.json(); }
+
+async function carregarStats() {
+  const el = document.getElementById('stats-row');
+  try {
+    const s = await getJSON('/stats');
+    el.innerHTML = Object.entries(s).map(([k,v]) => `
+      <div class="stat">
+        <div class="n">${v===null?'—':Number(v).toLocaleString('pt-BR')}</div>
+        <div class="l">${k.replace(/_/g,' ')}</div>
+      </div>`).join('');
+  } catch (e) { el.innerHTML = `<div class="loading">Erro ao carregar /stats: ${e.message}</div>`; }
+}
+
+async function carregarMapa() {
+  const mapDiv = document.getElementById('map');
+  mapDiv.innerHTML = '';
+  const map = L.map(mapDiv).setView([-14.2,-51.9], 4);
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { attribution:'&copy; OpenStreetMap', maxZoom:12 }).addTo(map);
+  try {
+    const geo = await getJSON('/siga/geojson?limit=500');
+    L.geoJSON(geo, {
+      pointToLayer: (f, latlng) => L.circleMarker(latlng, {
+        radius: Math.max(3, Math.min(14, Math.sqrt((f.properties.potencia_outorgada_kw||0)/5000))),
+        fillColor:'#2ecc71', color:'#0f1115', weight:1, fillOpacity:0.75
+      }).bindPopup(`<b>${f.properties.nome_empreendimento||'Usina'}</b><br>${f.properties.tipo_geracao||''} · ${f.properties.uf||''}<br>${(f.properties.potencia_outorgada_kw||0).toLocaleString('pt-BR')} kW`)
+    }).addTo(map);
+  } catch (e) { console.error(e); }
+}
+
+async function carregarFonte() {
+  try {
+    const rows = await getJSON('/totais/fonte');
+    new Chart(document.getElementById('chart-fonte'), {
+      type:'pie',
+      data: { labels: rows.map(r=>r.fonte), datasets:[{ data: rows.map(r=>r.potencia_total_kw||r.empreendimentos), backgroundColor: CORES }] },
+      options: { plugins: { legend: { position:'bottom', labels:{ color:'#e6e8ee', boxWidth:10, font:{size:11} } } } }
+    });
+  } catch (e) { console.error(e); }
+}
+
+async function carregarGrowth() {
+  try {
+    const rows = (await getJSON('/growth?limit=60')).reverse();
+    new Chart(document.getElementById('chart-growth'), {
+      type:'line',
+      data: { labels: rows.map(r=>r.data), datasets:[
+        { label:'MMGD ativos', data: rows.map(r=>r.mmgd_ativos), borderColor:'#2ecc71', tension:0.3, pointRadius:0 },
+        { label:'SIGA ativos', data: rows.map(r=>r.siga_ativos), borderColor:'#3498db', tension:0.3, pointRadius:0 }
+      ]},
+      options: {
+        scales: { x:{ ticks:{color:'#8a90a2', maxTicksLimit:6}, grid:{color:'#262b38'} }, y:{ ticks:{color:'#8a90a2'}, grid:{color:'#262b38'} } },
+        plugins: { legend: { labels:{ color:'#e6e8ee' } } }
+      }
+    });
+  } catch (e) { console.error(e); }
+}
+
+async function carregarUF() {
+  const tbody = document.querySelector('#tabela-uf tbody');
+  try {
+    const rows = await getJSON('/totais/uf');
+    tbody.innerHTML = rows.map(r => `<tr><td>${r.siguf}</td><td>${Number(r.total).toLocaleString('pt-BR')}</td></tr>`).join('');
+  } catch (e) { tbody.innerHTML = `<tr><td colspan="2" class="loading">Erro: ${e.message}</td></tr>`; }
+}
+
+carregarStats(); carregarMapa(); carregarFonte(); carregarGrowth(); carregarUF();
+</script>
+</body>
+</html>

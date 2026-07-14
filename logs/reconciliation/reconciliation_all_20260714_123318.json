@@ -1,0 +1,5252 @@
+{
+  "timestamp": "2026-07-14T12:29:09.957192",
+  "resumo": {
+    "contagem_tabelas": {
+      "mmgd_raw": 5947561,
+      "mmgd_fato": 1350000,
+      "mmgd_vector_docs": 0,
+      "ons_carga": 1920,
+      "mmgd_meta": 1,
+      "dessem_detalhe": 76877,
+      "siga_fato": 25215,
+      "growth_log": 2
+    },
+    "total_divergencias": 654,
+    "criticos": 70,
+    "atencoes": 584
+  },
+  "divergencias": [
+    {
+      "tipo": "campo_ausente_no_schema",
+      "chave": "mmgd_fato.classe_producao",
+      "valor_local": "ausente",
+      "valor_oficial": "presente na fonte ANEEL",
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "campo_ausente_no_schema",
+      "chave": "mmgd_fato.data_conexao",
+      "valor_local": "ausente",
+      "valor_oficial": "presente na fonte ANEEL",
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "campo_ausente_no_schema",
+      "chave": "mmgd_fato.distribuidora",
+      "valor_local": "ausente",
+      "valor_oficial": "presente na fonte ANEEL",
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "campo_ausente_no_schema",
+      "chave": "mmgd_fato.municipio",
+      "valor_local": "ausente",
+      "valor_oficial": "presente na fonte ANEEL",
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "campo_ausente_no_schema",
+      "chave": "mmgd_fato.nome_titular",
+      "valor_local": "ausente",
+      "valor_oficial": "presente na fonte ANEEL",
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "campo_ausente_no_schema",
+      "chave": "mmgd_fato.qtd_uc_recebe_credito",
+      "valor_local": "ausente",
+      "valor_oficial": "presente na fonte ANEEL",
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "campo_ausente_no_schema",
+      "chave": "mmgd_fato.subgrupo",
+      "valor_local": "ausente",
+      "valor_oficial": "presente na fonte ANEEL",
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "campo_ausente_no_schema",
+      "chave": "mmgd_fato.tipo_unidade_produtora",
+      "valor_local": "ausente",
+      "valor_oficial": "presente na fonte ANEEL",
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "etl_raw_para_fato_incompleto",
+      "chave": "mmgd_raw->mmgd_fato",
+      "valor_local": 1350000,
+      "valor_oficial": 5947561,
+      "delta_pct": 77.3,
+      "severidade": "critico"
+    },
+    {
+      "tipo": "fetch_vazio",
+      "chave": "SE",
+      "valor_local": null,
+      "valor_oficial": null,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "revisao_retroativa_nao_capturada",
+      "chave": "S:2026-07-11",
+      "valor_local": 13298.348,
+      "valor_oficial": 12129.52,
+      "delta_pct": 9.636,
+      "severidade": "critico"
+    },
+    {
+      "tipo": "revisao_retroativa_nao_capturada",
+      "chave": "S:2026-07-11",
+      "valor_local": 13298.348,
+      "valor_oficial": 11721.434,
+      "delta_pct": 13.453,
+      "severidade": "critico"
+    },
+    {
+      "tipo": "revisao_retroativa_nao_capturada",
+      "chave": "S:2026-07-11",
+      "valor_local": 13298.348,
+      "valor_oficial": 11297.305,
+      "delta_pct": 17.713,
+      "severidade": "critico"
+    },
+    {
+      "tipo": "revisao_retroativa_nao_capturada",
+      "chave": "S:2026-07-11",
+      "valor_local": 13298.348,
+      "valor_oficial": 10909.85,
+      "delta_pct": 21.893,
+      "severidade": "critico"
+    },
+    {
+      "tipo": "revisao_retroativa_nao_capturada",
+      "chave": "S:2026-07-11",
+      "valor_local": 13298.348,
+      "valor_oficial": 10625.85,
+      "delta_pct": 25.151,
+      "severidade": "critico"
+    },
+    {
+      "tipo": "revisao_retroativa_nao_capturada",
+      "chave": "S:2026-07-11",
+      "valor_local": 13298.348,
+      "valor_oficial": 10408.627,
+      "delta_pct": 27.763,
+      "severidade": "critico"
+    },
+    {
+      "tipo": "revisao_retroativa_nao_capturada",
+      "chave": "S:2026-07-11",
+      "valor_local": 13298.348,
+      "valor_oficial": 10271.305,
+      "delta_pct": 29.471,
+      "severidade": "critico"
+    },
+    {
+      "tipo": "revisao_retroativa_nao_capturada",
+      "chave": "S:2026-07-11",
+      "valor_local": 13298.348,
+      "valor_oficial": 10190.469,
+      "delta_pct": 30.498,
+      "severidade": "critico"
+    },
+    {
+      "tipo": "revisao_retroativa_nao_capturada",
+      "chave": "S:2026-07-11",
+      "valor_local": 13298.348,
+      "valor_oficial": 10156.8125,
+      "delta_pct": 30.93,
+      "severidade": "critico"
+    },
+    {
+      "tipo": "revisao_retroativa_nao_capturada",
+      "chave": "S:2026-07-11",
+      "valor_local": 13298.348,
+      "valor_oficial": 10220.125,
+      "delta_pct": 30.119,
+      "severidade": "critico"
+    },
+    {
+      "tipo": "revisao_retroativa_nao_capturada",
+      "chave": "S:2026-07-11",
+      "valor_local": 13298.348,
+      "valor_oficial": 10333.295,
+      "delta_pct": 28.694,
+      "severidade": "critico"
+    },
+    {
+      "tipo": "revisao_retroativa_nao_capturada",
+      "chave": "S:2026-07-11",
+      "valor_local": 13298.348,
+      "valor_oficial": 10460.595,
+      "delta_pct": 27.128,
+      "severidade": "critico"
+    },
+    {
+      "tipo": "revisao_retroativa_nao_capturada",
+      "chave": "S:2026-07-11",
+      "valor_local": 13298.348,
+      "valor_oficial": 10761.32,
+      "delta_pct": 23.575,
+      "severidade": "critico"
+    },
+    {
+      "tipo": "revisao_retroativa_nao_capturada",
+      "chave": "S:2026-07-11",
+      "valor_local": 13298.348,
+      "valor_oficial": 11065.637,
+      "delta_pct": 20.177,
+      "severidade": "critico"
+    },
+    {
+      "tipo": "revisao_retroativa_nao_capturada",
+      "chave": "S:2026-07-11",
+      "valor_local": 13298.348,
+      "valor_oficial": 11480.081,
+      "delta_pct": 15.838,
+      "severidade": "critico"
+    },
+    {
+      "tipo": "revisao_retroativa_nao_capturada",
+      "chave": "S:2026-07-11",
+      "valor_local": 13298.348,
+      "valor_oficial": 11842.49,
+      "delta_pct": 12.294,
+      "severidade": "critico"
+    },
+    {
+      "tipo": "revisao_retroativa_nao_capturada",
+      "chave": "S:2026-07-11",
+      "valor_local": 13298.348,
+      "valor_oficial": 12452.314,
+      "delta_pct": 6.794,
+      "severidade": "critico"
+    },
+    {
+      "tipo": "revisao_retroativa_nao_capturada",
+      "chave": "S:2026-07-11",
+      "valor_local": 13298.348,
+      "valor_oficial": 12994.311,
+      "delta_pct": 2.34,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "revisao_retroativa_nao_capturada",
+      "chave": "S:2026-07-11",
+      "valor_local": 13298.348,
+      "valor_oficial": 13547.469,
+      "delta_pct": 1.839,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "revisao_retroativa_nao_capturada",
+      "chave": "S:2026-07-11",
+      "valor_local": 13298.348,
+      "valor_oficial": 13951.791,
+      "delta_pct": 4.684,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "revisao_retroativa_nao_capturada",
+      "chave": "S:2026-07-11",
+      "valor_local": 13298.348,
+      "valor_oficial": 14314.361,
+      "delta_pct": 7.098,
+      "severidade": "critico"
+    },
+    {
+      "tipo": "revisao_retroativa_nao_capturada",
+      "chave": "S:2026-07-11",
+      "valor_local": 13298.348,
+      "valor_oficial": 14611.447,
+      "delta_pct": 8.987,
+      "severidade": "critico"
+    },
+    {
+      "tipo": "revisao_retroativa_nao_capturada",
+      "chave": "S:2026-07-11",
+      "valor_local": 13298.348,
+      "valor_oficial": 14664.467,
+      "delta_pct": 9.316,
+      "severidade": "critico"
+    },
+    {
+      "tipo": "revisao_retroativa_nao_capturada",
+      "chave": "S:2026-07-11",
+      "valor_local": 13298.348,
+      "valor_oficial": 14559.192,
+      "delta_pct": 8.66,
+      "severidade": "critico"
+    },
+    {
+      "tipo": "revisao_retroativa_nao_capturada",
+      "chave": "S:2026-07-11",
+      "valor_local": 13298.348,
+      "valor_oficial": 14199.394,
+      "delta_pct": 6.346,
+      "severidade": "critico"
+    },
+    {
+      "tipo": "revisao_retroativa_nao_capturada",
+      "chave": "S:2026-07-11",
+      "valor_local": 13298.348,
+      "valor_oficial": 14052.963,
+      "delta_pct": 5.37,
+      "severidade": "critico"
+    },
+    {
+      "tipo": "revisao_retroativa_nao_capturada",
+      "chave": "S:2026-07-11",
+      "valor_local": 13298.348,
+      "valor_oficial": 13827.188,
+      "delta_pct": 3.825,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "revisao_retroativa_nao_capturada",
+      "chave": "S:2026-07-11",
+      "valor_local": 13298.348,
+      "valor_oficial": 13692.467,
+      "delta_pct": 2.878,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "revisao_retroativa_nao_capturada",
+      "chave": "S:2026-07-11",
+      "valor_local": 13298.348,
+      "valor_oficial": 13472.053,
+      "delta_pct": 1.289,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "revisao_retroativa_nao_capturada",
+      "chave": "S:2026-07-11",
+      "valor_local": 13298.348,
+      "valor_oficial": 13223.935,
+      "delta_pct": 0.563,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "revisao_retroativa_nao_capturada",
+      "chave": "S:2026-07-11",
+      "valor_local": 13298.348,
+      "valor_oficial": 13442.334,
+      "delta_pct": 1.071,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "revisao_retroativa_nao_capturada",
+      "chave": "S:2026-07-11",
+      "valor_local": 13298.348,
+      "valor_oficial": 13661.235,
+      "delta_pct": 2.656,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "revisao_retroativa_nao_capturada",
+      "chave": "S:2026-07-11",
+      "valor_local": 13298.348,
+      "valor_oficial": 14040.165,
+      "delta_pct": 5.284,
+      "severidade": "critico"
+    },
+    {
+      "tipo": "revisao_retroativa_nao_capturada",
+      "chave": "S:2026-07-11",
+      "valor_local": 13298.348,
+      "valor_oficial": 14461.331,
+      "delta_pct": 8.042,
+      "severidade": "critico"
+    },
+    {
+      "tipo": "revisao_retroativa_nao_capturada",
+      "chave": "S:2026-07-11",
+      "valor_local": 13298.348,
+      "valor_oficial": 15267.425,
+      "delta_pct": 12.897,
+      "severidade": "critico"
+    },
+    {
+      "tipo": "revisao_retroativa_nao_capturada",
+      "chave": "S:2026-07-11",
+      "valor_local": 13298.348,
+      "valor_oficial": 15720.456,
+      "delta_pct": 15.407,
+      "severidade": "critico"
+    },
+    {
+      "tipo": "revisao_retroativa_nao_capturada",
+      "chave": "S:2026-07-11",
+      "valor_local": 13298.348,
+      "valor_oficial": 15461.501,
+      "delta_pct": 13.991,
+      "severidade": "critico"
+    },
+    {
+      "tipo": "revisao_retroativa_nao_capturada",
+      "chave": "S:2026-07-11",
+      "valor_local": 13298.348,
+      "valor_oficial": 15129.778,
+      "delta_pct": 12.105,
+      "severidade": "critico"
+    },
+    {
+      "tipo": "revisao_retroativa_nao_capturada",
+      "chave": "S:2026-07-11",
+      "valor_local": 13298.348,
+      "valor_oficial": 14495.058,
+      "delta_pct": 8.256,
+      "severidade": "critico"
+    },
+    {
+      "tipo": "revisao_retroativa_nao_capturada",
+      "chave": "S:2026-07-11",
+      "valor_local": 13298.348,
+      "valor_oficial": 14100.615,
+      "delta_pct": 5.69,
+      "severidade": "critico"
+    },
+    {
+      "tipo": "revisao_retroativa_nao_capturada",
+      "chave": "S:2026-07-11",
+      "valor_local": 13298.348,
+      "valor_oficial": 13806.695,
+      "delta_pct": 3.682,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "revisao_retroativa_nao_capturada",
+      "chave": "S:2026-07-11",
+      "valor_local": 13298.348,
+      "valor_oficial": 13941.231,
+      "delta_pct": 4.611,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "revisao_retroativa_nao_capturada",
+      "chave": "S:2026-07-11",
+      "valor_local": 13298.348,
+      "valor_oficial": 12532.819,
+      "delta_pct": 6.108,
+      "severidade": "critico"
+    },
+    {
+      "tipo": "revisao_retroativa_nao_capturada",
+      "chave": "S:2026-07-11",
+      "valor_local": 13298.348,
+      "valor_oficial": 12049.345,
+      "delta_pct": 10.366,
+      "severidade": "critico"
+    },
+    {
+      "tipo": "revisao_retroativa_nao_capturada",
+      "chave": "S:2026-07-11",
+      "valor_local": 13298.348,
+      "valor_oficial": 11519.627,
+      "delta_pct": 15.441,
+      "severidade": "critico"
+    },
+    {
+      "tipo": "revisao_retroativa_nao_capturada",
+      "chave": "S:2026-07-11",
+      "valor_local": 13298.348,
+      "valor_oficial": 10957.037,
+      "delta_pct": 21.368,
+      "severidade": "critico"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "S:2026-07-12",
+      "valor_local": null,
+      "valor_oficial": 10488.427,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "S:2026-07-12",
+      "valor_local": null,
+      "valor_oficial": 10072.285,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "S:2026-07-12",
+      "valor_local": null,
+      "valor_oficial": 9749.533,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "S:2026-07-12",
+      "valor_local": null,
+      "valor_oficial": 9293.17,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "S:2026-07-12",
+      "valor_local": null,
+      "valor_oficial": 8979.998,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "S:2026-07-12",
+      "valor_local": null,
+      "valor_oficial": 8753.493,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "S:2026-07-12",
+      "valor_local": null,
+      "valor_oficial": 8597.969,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "S:2026-07-12",
+      "valor_local": null,
+      "valor_oficial": 8452.275,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "S:2026-07-12",
+      "valor_local": null,
+      "valor_oficial": 8416.322,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "S:2026-07-12",
+      "valor_local": null,
+      "valor_oficial": 8416.386,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "S:2026-07-12",
+      "valor_local": null,
+      "valor_oficial": 8487.721,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "S:2026-07-12",
+      "valor_local": null,
+      "valor_oficial": 8554.533,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "S:2026-07-12",
+      "valor_local": null,
+      "valor_oficial": 8693.625,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "S:2026-07-12",
+      "valor_local": null,
+      "valor_oficial": 8835.445,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "S:2026-07-12",
+      "valor_local": null,
+      "valor_oficial": 9015.329,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "S:2026-07-12",
+      "valor_local": null,
+      "valor_oficial": 9137.015,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "S:2026-07-12",
+      "valor_local": null,
+      "valor_oficial": 9567.902,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "S:2026-07-12",
+      "valor_local": null,
+      "valor_oficial": 9930.537,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "S:2026-07-12",
+      "valor_local": null,
+      "valor_oficial": 10318.815,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "S:2026-07-12",
+      "valor_local": null,
+      "valor_oficial": 10620.492,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "S:2026-07-12",
+      "valor_local": null,
+      "valor_oficial": 10872.627,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "S:2026-07-12",
+      "valor_local": null,
+      "valor_oficial": 11066.94,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "S:2026-07-12",
+      "valor_local": null,
+      "valor_oficial": 11244.691,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "S:2026-07-12",
+      "valor_local": null,
+      "valor_oficial": 11307.749,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "S:2026-07-12",
+      "valor_local": null,
+      "valor_oficial": 11151.504,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "S:2026-07-12",
+      "valor_local": null,
+      "valor_oficial": 10802.151,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "S:2026-07-12",
+      "valor_local": null,
+      "valor_oficial": 10458.604,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "S:2026-07-12",
+      "valor_local": null,
+      "valor_oficial": 10194.093,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "S:2026-07-12",
+      "valor_local": null,
+      "valor_oficial": 9955.243,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "S:2026-07-12",
+      "valor_local": null,
+      "valor_oficial": 9906.9375,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "S:2026-07-12",
+      "valor_local": null,
+      "valor_oficial": 10005.501,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "S:2026-07-12",
+      "valor_local": null,
+      "valor_oficial": 10278.281,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "S:2026-07-12",
+      "valor_local": null,
+      "valor_oficial": 10703.308,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "S:2026-07-12",
+      "valor_local": null,
+      "valor_oficial": 11437.895,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "S:2026-07-12",
+      "valor_local": null,
+      "valor_oficial": 12274.781,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "S:2026-07-12",
+      "valor_local": null,
+      "valor_oficial": 13454.909,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "S:2026-07-12",
+      "valor_local": null,
+      "valor_oficial": 14749.319,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "S:2026-07-12",
+      "valor_local": null,
+      "valor_oficial": 15059.532,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "S:2026-07-12",
+      "valor_local": null,
+      "valor_oficial": 14840.156,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "S:2026-07-12",
+      "valor_local": null,
+      "valor_oficial": 14605.05,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "S:2026-07-12",
+      "valor_local": null,
+      "valor_oficial": 14307.901,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "S:2026-07-12",
+      "valor_local": null,
+      "valor_oficial": 14013.174,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "S:2026-07-12",
+      "valor_local": null,
+      "valor_oficial": 13687.542,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "S:2026-07-12",
+      "valor_local": null,
+      "valor_oficial": 13265.124,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "S:2026-07-12",
+      "valor_local": null,
+      "valor_oficial": 12731.96,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "S:2026-07-12",
+      "valor_local": null,
+      "valor_oficial": 12129.095,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "S:2026-07-12",
+      "valor_local": null,
+      "valor_oficial": 11508.9375,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "S:2026-07-12",
+      "valor_local": null,
+      "valor_oficial": 10984.715,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "S:2026-07-13",
+      "valor_local": null,
+      "valor_oficial": 10471.298,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "S:2026-07-13",
+      "valor_local": null,
+      "valor_oficial": 10113.694,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "S:2026-07-13",
+      "valor_local": null,
+      "valor_oficial": 9848.827,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "S:2026-07-13",
+      "valor_local": null,
+      "valor_oficial": 9653.929,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "S:2026-07-13",
+      "valor_local": null,
+      "valor_oficial": 9510.647,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "S:2026-07-13",
+      "valor_local": null,
+      "valor_oficial": 9469.861,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "S:2026-07-13",
+      "valor_local": null,
+      "valor_oficial": 9503.219,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "S:2026-07-13",
+      "valor_local": null,
+      "valor_oficial": 9518.7705,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "S:2026-07-13",
+      "valor_local": null,
+      "valor_oficial": 9643.813,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "S:2026-07-13",
+      "valor_local": null,
+      "valor_oficial": 9789.323,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "S:2026-07-13",
+      "valor_local": null,
+      "valor_oficial": 10289.918,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "S:2026-07-13",
+      "valor_local": null,
+      "valor_oficial": 10871.789,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "S:2026-07-13",
+      "valor_local": null,
+      "valor_oficial": 11842.148,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "S:2026-07-13",
+      "valor_local": null,
+      "valor_oficial": 12721.801,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "S:2026-07-13",
+      "valor_local": null,
+      "valor_oficial": 13646.358,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "S:2026-07-13",
+      "valor_local": null,
+      "valor_oficial": 14279.804,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "S:2026-07-13",
+      "valor_local": null,
+      "valor_oficial": 14902.347,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "S:2026-07-13",
+      "valor_local": null,
+      "valor_oficial": 15065.393,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "S:2026-07-13",
+      "valor_local": null,
+      "valor_oficial": 15073.277,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "S:2026-07-13",
+      "valor_local": null,
+      "valor_oficial": 15090.393,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "S:2026-07-13",
+      "valor_local": null,
+      "valor_oficial": 15235.389,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "S:2026-07-13",
+      "valor_local": null,
+      "valor_oficial": 15491.298,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "S:2026-07-13",
+      "valor_local": null,
+      "valor_oficial": 15611.816,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "S:2026-07-13",
+      "valor_local": null,
+      "valor_oficial": 15181.428,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "S:2026-07-13",
+      "valor_local": null,
+      "valor_oficial": 14258.883,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "S:2026-07-13",
+      "valor_local": null,
+      "valor_oficial": 13877.487,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "S:2026-07-13",
+      "valor_local": null,
+      "valor_oficial": 14144.719,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "S:2026-07-13",
+      "valor_local": null,
+      "valor_oficial": 14498.071,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "S:2026-07-13",
+      "valor_local": null,
+      "valor_oficial": 14455.887,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "S:2026-07-13",
+      "valor_local": null,
+      "valor_oficial": 14500.592,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "S:2026-07-13",
+      "valor_local": null,
+      "valor_oficial": 14573.738,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "S:2026-07-13",
+      "valor_local": null,
+      "valor_oficial": 14924.457,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "S:2026-07-13",
+      "valor_local": null,
+      "valor_oficial": 15401.854,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "S:2026-07-13",
+      "valor_local": null,
+      "valor_oficial": 15914.903,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "S:2026-07-13",
+      "valor_local": null,
+      "valor_oficial": 16166.733,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "S:2026-07-13",
+      "valor_local": null,
+      "valor_oficial": 16847.904,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "S:2026-07-13",
+      "valor_local": null,
+      "valor_oficial": 17876.293,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "S:2026-07-13",
+      "valor_local": null,
+      "valor_oficial": 18479.611,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "S:2026-07-13",
+      "valor_local": null,
+      "valor_oficial": 18368.01,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "S:2026-07-13",
+      "valor_local": null,
+      "valor_oficial": 18075.365,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "S:2026-07-13",
+      "valor_local": null,
+      "valor_oficial": 17634.504,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "S:2026-07-13",
+      "valor_local": null,
+      "valor_oficial": 17262.809,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "S:2026-07-13",
+      "valor_local": null,
+      "valor_oficial": 16791.168,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "S:2026-07-13",
+      "valor_local": null,
+      "valor_oficial": 16203.496,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "S:2026-07-13",
+      "valor_local": null,
+      "valor_oficial": 15420.425,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "S:2026-07-13",
+      "valor_local": null,
+      "valor_oficial": 14558.982,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "S:2026-07-13",
+      "valor_local": null,
+      "valor_oficial": 13547.986,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "S:2026-07-13",
+      "valor_local": null,
+      "valor_oficial": 12745.966,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "S:2026-07-14",
+      "valor_local": null,
+      "valor_oficial": 12075.432,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "S:2026-07-14",
+      "valor_local": null,
+      "valor_oficial": 11563.043,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "S:2026-07-14",
+      "valor_local": null,
+      "valor_oficial": 11110.208,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "S:2026-07-14",
+      "valor_local": null,
+      "valor_oficial": 10769.523,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "S:2026-07-14",
+      "valor_local": null,
+      "valor_oficial": 10540.125,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "S:2026-07-14",
+      "valor_local": null,
+      "valor_oficial": 10398.271,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "S:2026-07-14",
+      "valor_local": null,
+      "valor_oficial": 10350.863,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "S:2026-07-14",
+      "valor_local": null,
+      "valor_oficial": 10364.308,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "S:2026-07-14",
+      "valor_local": null,
+      "valor_oficial": 10460.43,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "S:2026-07-14",
+      "valor_local": null,
+      "valor_oficial": 10553.694,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "S:2026-07-14",
+      "valor_local": null,
+      "valor_oficial": 10982.523,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "S:2026-07-14",
+      "valor_local": null,
+      "valor_oficial": 11567.551,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "S:2026-07-14",
+      "valor_local": null,
+      "valor_oficial": 12501.596,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "S:2026-07-14",
+      "valor_local": null,
+      "valor_oficial": 13383.107,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "S:2026-07-14",
+      "valor_local": null,
+      "valor_oficial": 14236.459,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "S:2026-07-14",
+      "valor_local": null,
+      "valor_oficial": 14881.301,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "S:2026-07-14",
+      "valor_local": null,
+      "valor_oficial": 15488.113,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "S:2026-07-14",
+      "valor_local": null,
+      "valor_oficial": 15484.44,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "S:2026-07-14",
+      "valor_local": null,
+      "valor_oficial": 15334.398,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "revisao_retroativa_nao_capturada",
+      "chave": "NE:2026-07-11",
+      "valor_local": 12516.93,
+      "valor_oficial": 14266.673,
+      "delta_pct": 12.265,
+      "severidade": "critico"
+    },
+    {
+      "tipo": "revisao_retroativa_nao_capturada",
+      "chave": "NE:2026-07-11",
+      "valor_local": 12516.93,
+      "valor_oficial": 14012.824,
+      "delta_pct": 10.675,
+      "severidade": "critico"
+    },
+    {
+      "tipo": "revisao_retroativa_nao_capturada",
+      "chave": "NE:2026-07-11",
+      "valor_local": 12516.93,
+      "valor_oficial": 13799.852,
+      "delta_pct": 9.297,
+      "severidade": "critico"
+    },
+    {
+      "tipo": "revisao_retroativa_nao_capturada",
+      "chave": "NE:2026-07-11",
+      "valor_local": 12516.93,
+      "valor_oficial": 13539.552,
+      "delta_pct": 7.553,
+      "severidade": "critico"
+    },
+    {
+      "tipo": "revisao_retroativa_nao_capturada",
+      "chave": "NE:2026-07-11",
+      "valor_local": 12516.93,
+      "valor_oficial": 13291.197,
+      "delta_pct": 5.825,
+      "severidade": "critico"
+    },
+    {
+      "tipo": "revisao_retroativa_nao_capturada",
+      "chave": "NE:2026-07-11",
+      "valor_local": 12516.93,
+      "valor_oficial": 13139.718,
+      "delta_pct": 4.74,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "revisao_retroativa_nao_capturada",
+      "chave": "NE:2026-07-11",
+      "valor_local": 12516.93,
+      "valor_oficial": 13049.072,
+      "delta_pct": 4.078,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "revisao_retroativa_nao_capturada",
+      "chave": "NE:2026-07-11",
+      "valor_local": 12516.93,
+      "valor_oficial": 12935.822,
+      "delta_pct": 3.238,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "revisao_retroativa_nao_capturada",
+      "chave": "NE:2026-07-11",
+      "valor_local": 12516.93,
+      "valor_oficial": 12846.316,
+      "delta_pct": 2.564,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "revisao_retroativa_nao_capturada",
+      "chave": "NE:2026-07-11",
+      "valor_local": 12516.93,
+      "valor_oficial": 12756.261,
+      "delta_pct": 1.876,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "revisao_retroativa_nao_capturada",
+      "chave": "NE:2026-07-11",
+      "valor_local": 12516.93,
+      "valor_oficial": 12712.662,
+      "delta_pct": 1.54,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "revisao_retroativa_nao_capturada",
+      "chave": "NE:2026-07-11",
+      "valor_local": 12516.93,
+      "valor_oficial": 12281.281,
+      "delta_pct": 1.919,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "revisao_retroativa_nao_capturada",
+      "chave": "NE:2026-07-11",
+      "valor_local": 12516.93,
+      "valor_oficial": 12094.262,
+      "delta_pct": 3.495,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "revisao_retroativa_nao_capturada",
+      "chave": "NE:2026-07-11",
+      "valor_local": 12516.93,
+      "valor_oficial": 12040.318,
+      "delta_pct": 3.958,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "revisao_retroativa_nao_capturada",
+      "chave": "NE:2026-07-11",
+      "valor_local": 12516.93,
+      "valor_oficial": 12140.662,
+      "delta_pct": 3.099,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "revisao_retroativa_nao_capturada",
+      "chave": "NE:2026-07-11",
+      "valor_local": 12516.93,
+      "valor_oficial": 12190.852,
+      "delta_pct": 2.675,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "revisao_retroativa_nao_capturada",
+      "chave": "NE:2026-07-11",
+      "valor_local": 12516.93,
+      "valor_oficial": 12167.009,
+      "delta_pct": 2.876,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "revisao_retroativa_nao_capturada",
+      "chave": "NE:2026-07-11",
+      "valor_local": 12516.93,
+      "valor_oficial": 12297.0625,
+      "delta_pct": 1.788,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "revisao_retroativa_nao_capturada",
+      "chave": "NE:2026-07-11",
+      "valor_local": 12516.93,
+      "valor_oficial": 12247.919,
+      "delta_pct": 2.196,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "revisao_retroativa_nao_capturada",
+      "chave": "NE:2026-07-11",
+      "valor_local": 12516.93,
+      "valor_oficial": 12292.602,
+      "delta_pct": 1.825,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "revisao_retroativa_nao_capturada",
+      "chave": "NE:2026-07-11",
+      "valor_local": 12516.93,
+      "valor_oficial": 12317.752,
+      "delta_pct": 1.617,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "revisao_retroativa_nao_capturada",
+      "chave": "NE:2026-07-11",
+      "valor_local": 12516.93,
+      "valor_oficial": 12432.744,
+      "delta_pct": 0.677,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "revisao_retroativa_nao_capturada",
+      "chave": "NE:2026-07-11",
+      "valor_local": 12516.93,
+      "valor_oficial": 12336.742,
+      "delta_pct": 1.461,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "revisao_retroativa_nao_capturada",
+      "chave": "NE:2026-07-11",
+      "valor_local": 12516.93,
+      "valor_oficial": 12189.89,
+      "delta_pct": 2.683,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "revisao_retroativa_nao_capturada",
+      "chave": "NE:2026-07-11",
+      "valor_local": 12516.93,
+      "valor_oficial": 12192.729,
+      "delta_pct": 2.659,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "revisao_retroativa_nao_capturada",
+      "chave": "NE:2026-07-11",
+      "valor_local": 12516.93,
+      "valor_oficial": 12226.76,
+      "delta_pct": 2.373,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "revisao_retroativa_nao_capturada",
+      "chave": "NE:2026-07-11",
+      "valor_local": 12516.93,
+      "valor_oficial": 12236.991,
+      "delta_pct": 2.288,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "revisao_retroativa_nao_capturada",
+      "chave": "NE:2026-07-11",
+      "valor_local": 12516.93,
+      "valor_oficial": 12379.41,
+      "delta_pct": 1.111,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "revisao_retroativa_nao_capturada",
+      "chave": "NE:2026-07-11",
+      "valor_local": 12516.93,
+      "valor_oficial": 12844.018,
+      "delta_pct": 2.547,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "revisao_retroativa_nao_capturada",
+      "chave": "NE:2026-07-11",
+      "valor_local": 12516.93,
+      "valor_oficial": 13188.365,
+      "delta_pct": 5.091,
+      "severidade": "critico"
+    },
+    {
+      "tipo": "revisao_retroativa_nao_capturada",
+      "chave": "NE:2026-07-11",
+      "valor_local": 12516.93,
+      "valor_oficial": 13694.033,
+      "delta_pct": 8.596,
+      "severidade": "critico"
+    },
+    {
+      "tipo": "revisao_retroativa_nao_capturada",
+      "chave": "NE:2026-07-11",
+      "valor_local": 12516.93,
+      "valor_oficial": 13969.592,
+      "delta_pct": 10.399,
+      "severidade": "critico"
+    },
+    {
+      "tipo": "revisao_retroativa_nao_capturada",
+      "chave": "NE:2026-07-11",
+      "valor_local": 12516.93,
+      "valor_oficial": 15004.918,
+      "delta_pct": 16.581,
+      "severidade": "critico"
+    },
+    {
+      "tipo": "revisao_retroativa_nao_capturada",
+      "chave": "NE:2026-07-11",
+      "valor_local": 12516.93,
+      "valor_oficial": 15622.566,
+      "delta_pct": 19.879,
+      "severidade": "critico"
+    },
+    {
+      "tipo": "revisao_retroativa_nao_capturada",
+      "chave": "NE:2026-07-11",
+      "valor_local": 12516.93,
+      "valor_oficial": 15529.016,
+      "delta_pct": 19.397,
+      "severidade": "critico"
+    },
+    {
+      "tipo": "revisao_retroativa_nao_capturada",
+      "chave": "NE:2026-07-11",
+      "valor_local": 12516.93,
+      "valor_oficial": 15350.127,
+      "delta_pct": 18.457,
+      "severidade": "critico"
+    },
+    {
+      "tipo": "revisao_retroativa_nao_capturada",
+      "chave": "NE:2026-07-11",
+      "valor_local": 12516.93,
+      "valor_oficial": 15190.735,
+      "delta_pct": 17.602,
+      "severidade": "critico"
+    },
+    {
+      "tipo": "revisao_retroativa_nao_capturada",
+      "chave": "NE:2026-07-11",
+      "valor_local": 12516.93,
+      "valor_oficial": 14998.778,
+      "delta_pct": 16.547,
+      "severidade": "critico"
+    },
+    {
+      "tipo": "revisao_retroativa_nao_capturada",
+      "chave": "NE:2026-07-11",
+      "valor_local": 12516.93,
+      "valor_oficial": 14891.375,
+      "delta_pct": 15.945,
+      "severidade": "critico"
+    },
+    {
+      "tipo": "revisao_retroativa_nao_capturada",
+      "chave": "NE:2026-07-11",
+      "valor_local": 12516.93,
+      "valor_oficial": 14900.054,
+      "delta_pct": 15.994,
+      "severidade": "critico"
+    },
+    {
+      "tipo": "revisao_retroativa_nao_capturada",
+      "chave": "NE:2026-07-11",
+      "valor_local": 12516.93,
+      "valor_oficial": 14906.286,
+      "delta_pct": 16.029,
+      "severidade": "critico"
+    },
+    {
+      "tipo": "revisao_retroativa_nao_capturada",
+      "chave": "NE:2026-07-11",
+      "valor_local": 12516.93,
+      "valor_oficial": 14771.339,
+      "delta_pct": 15.262,
+      "severidade": "critico"
+    },
+    {
+      "tipo": "revisao_retroativa_nao_capturada",
+      "chave": "NE:2026-07-11",
+      "valor_local": 12516.93,
+      "valor_oficial": 14603.731,
+      "delta_pct": 14.29,
+      "severidade": "critico"
+    },
+    {
+      "tipo": "revisao_retroativa_nao_capturada",
+      "chave": "NE:2026-07-11",
+      "valor_local": 12516.93,
+      "valor_oficial": 14443.175,
+      "delta_pct": 13.337,
+      "severidade": "critico"
+    },
+    {
+      "tipo": "revisao_retroativa_nao_capturada",
+      "chave": "NE:2026-07-11",
+      "valor_local": 12516.93,
+      "valor_oficial": 14226.185,
+      "delta_pct": 12.015,
+      "severidade": "critico"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "NE:2026-07-12",
+      "valor_local": null,
+      "valor_oficial": 14001.146,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "NE:2026-07-12",
+      "valor_local": null,
+      "valor_oficial": 13773.207,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "NE:2026-07-12",
+      "valor_local": null,
+      "valor_oficial": 13557.662,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "NE:2026-07-12",
+      "valor_local": null,
+      "valor_oficial": 13310.53,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "NE:2026-07-12",
+      "valor_local": null,
+      "valor_oficial": 13162.46,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "NE:2026-07-12",
+      "valor_local": null,
+      "valor_oficial": 12976.214,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "NE:2026-07-12",
+      "valor_local": null,
+      "valor_oficial": 12855.488,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "NE:2026-07-12",
+      "valor_local": null,
+      "valor_oficial": 12747.941,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "NE:2026-07-12",
+      "valor_local": null,
+      "valor_oficial": 12683.682,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "NE:2026-07-12",
+      "valor_local": null,
+      "valor_oficial": 12589.397,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "NE:2026-07-12",
+      "valor_local": null,
+      "valor_oficial": 12472.592,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "NE:2026-07-12",
+      "valor_local": null,
+      "valor_oficial": 12010.22,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "NE:2026-07-12",
+      "valor_local": null,
+      "valor_oficial": 11730.064,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "NE:2026-07-12",
+      "valor_local": null,
+      "valor_oficial": 11480.496,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "NE:2026-07-12",
+      "valor_local": null,
+      "valor_oficial": 11435.485,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "NE:2026-07-12",
+      "valor_local": null,
+      "valor_oficial": 11036.418,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "NE:2026-07-12",
+      "valor_local": null,
+      "valor_oficial": 10859.678,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "NE:2026-07-12",
+      "valor_local": null,
+      "valor_oficial": 10686.678,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "NE:2026-07-12",
+      "valor_local": null,
+      "valor_oficial": 10689.754,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "NE:2026-07-12",
+      "valor_local": null,
+      "valor_oficial": 10677.984,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "NE:2026-07-12",
+      "valor_local": null,
+      "valor_oficial": 10712.305,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "NE:2026-07-12",
+      "valor_local": null,
+      "valor_oficial": 10711.522,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "NE:2026-07-12",
+      "valor_local": null,
+      "valor_oficial": 10730.643,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "NE:2026-07-12",
+      "valor_local": null,
+      "valor_oficial": 10826.838,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "NE:2026-07-12",
+      "valor_local": null,
+      "valor_oficial": 10768.284,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "NE:2026-07-12",
+      "valor_local": null,
+      "valor_oficial": 10677.863,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "NE:2026-07-12",
+      "valor_local": null,
+      "valor_oficial": 10760.373,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "NE:2026-07-12",
+      "valor_local": null,
+      "valor_oficial": 10763.17,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "NE:2026-07-12",
+      "valor_local": null,
+      "valor_oficial": 10808.27,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "NE:2026-07-12",
+      "valor_local": null,
+      "valor_oficial": 10950.63,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "NE:2026-07-12",
+      "valor_local": null,
+      "valor_oficial": 11283.174,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "NE:2026-07-12",
+      "valor_local": null,
+      "valor_oficial": 11768.76,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "NE:2026-07-12",
+      "valor_local": null,
+      "valor_oficial": 12216.222,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "NE:2026-07-12",
+      "valor_local": null,
+      "valor_oficial": 12630.739,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "NE:2026-07-12",
+      "valor_local": null,
+      "valor_oficial": 12953.733,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "NE:2026-07-12",
+      "valor_local": null,
+      "valor_oficial": 14007.403,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "NE:2026-07-12",
+      "valor_local": null,
+      "valor_oficial": 14659.28,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "NE:2026-07-12",
+      "valor_local": null,
+      "valor_oficial": 14707.961,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "NE:2026-07-12",
+      "valor_local": null,
+      "valor_oficial": 14659.375,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "NE:2026-07-12",
+      "valor_local": null,
+      "valor_oficial": 14597.196,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "NE:2026-07-12",
+      "valor_local": null,
+      "valor_oficial": 14542.834,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "NE:2026-07-12",
+      "valor_local": null,
+      "valor_oficial": 14588.182,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "NE:2026-07-12",
+      "valor_local": null,
+      "valor_oficial": 14661.383,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "NE:2026-07-12",
+      "valor_local": null,
+      "valor_oficial": 14671.657,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "NE:2026-07-12",
+      "valor_local": null,
+      "valor_oficial": 14589.103,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "NE:2026-07-12",
+      "valor_local": null,
+      "valor_oficial": 14417.846,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "NE:2026-07-12",
+      "valor_local": null,
+      "valor_oficial": 14226.056,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "NE:2026-07-12",
+      "valor_local": null,
+      "valor_oficial": 14017.577,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "NE:2026-07-13",
+      "valor_local": null,
+      "valor_oficial": 13755.389,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "NE:2026-07-13",
+      "valor_local": null,
+      "valor_oficial": 13482.341,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "NE:2026-07-13",
+      "valor_local": null,
+      "valor_oficial": 13279.862,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "NE:2026-07-13",
+      "valor_local": null,
+      "valor_oficial": 13077.938,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "NE:2026-07-13",
+      "valor_local": null,
+      "valor_oficial": 12930.485,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "NE:2026-07-13",
+      "valor_local": null,
+      "valor_oficial": 12794.975,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "NE:2026-07-13",
+      "valor_local": null,
+      "valor_oficial": 12677.951,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "NE:2026-07-13",
+      "valor_local": null,
+      "valor_oficial": 12590.5,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "NE:2026-07-13",
+      "valor_local": null,
+      "valor_oficial": 12547.754,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "NE:2026-07-13",
+      "valor_local": null,
+      "valor_oficial": 12556.774,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "NE:2026-07-13",
+      "valor_local": null,
+      "valor_oficial": 12651.093,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "NE:2026-07-13",
+      "valor_local": null,
+      "valor_oficial": 12417.311,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "NE:2026-07-13",
+      "valor_local": null,
+      "valor_oficial": 12360.82,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "NE:2026-07-13",
+      "valor_local": null,
+      "valor_oficial": 12282.857,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "NE:2026-07-13",
+      "valor_local": null,
+      "valor_oficial": 12521.59,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "NE:2026-07-13",
+      "valor_local": null,
+      "valor_oficial": 12790.295,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "NE:2026-07-13",
+      "valor_local": null,
+      "valor_oficial": 13118.901,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "NE:2026-07-13",
+      "valor_local": null,
+      "valor_oficial": 13299.314,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "NE:2026-07-13",
+      "valor_local": null,
+      "valor_oficial": 13410.061,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "NE:2026-07-13",
+      "valor_local": null,
+      "valor_oficial": 13571.744,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "NE:2026-07-13",
+      "valor_local": null,
+      "valor_oficial": 13814.21,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "NE:2026-07-13",
+      "valor_local": null,
+      "valor_oficial": 14032.077,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "NE:2026-07-13",
+      "valor_local": null,
+      "valor_oficial": 14187.931,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "NE:2026-07-13",
+      "valor_local": null,
+      "valor_oficial": 14203.089,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "NE:2026-07-13",
+      "valor_local": null,
+      "valor_oficial": 13919.216,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "NE:2026-07-13",
+      "valor_local": null,
+      "valor_oficial": 13837.883,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "NE:2026-07-13",
+      "valor_local": null,
+      "valor_oficial": 14052.626,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "NE:2026-07-13",
+      "valor_local": null,
+      "valor_oficial": 14320.186,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "NE:2026-07-13",
+      "valor_local": null,
+      "valor_oficial": 14584.59,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "NE:2026-07-13",
+      "valor_local": null,
+      "valor_oficial": 14819.944,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "NE:2026-07-13",
+      "valor_local": null,
+      "valor_oficial": 14979.15,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "NE:2026-07-13",
+      "valor_local": null,
+      "valor_oficial": 15207.41,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "NE:2026-07-13",
+      "valor_local": null,
+      "valor_oficial": 15468.834,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "NE:2026-07-13",
+      "valor_local": null,
+      "valor_oficial": 15676.359,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "NE:2026-07-13",
+      "valor_local": null,
+      "valor_oficial": 15236.02,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "NE:2026-07-13",
+      "valor_local": null,
+      "valor_oficial": 15691.243,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "NE:2026-07-13",
+      "valor_local": null,
+      "valor_oficial": 15845.513,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "NE:2026-07-13",
+      "valor_local": null,
+      "valor_oficial": 15772.988,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "NE:2026-07-13",
+      "valor_local": null,
+      "valor_oficial": 15640.763,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "NE:2026-07-13",
+      "valor_local": null,
+      "valor_oficial": 15512.296,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "NE:2026-07-13",
+      "valor_local": null,
+      "valor_oficial": 15404.457,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "NE:2026-07-13",
+      "valor_local": null,
+      "valor_oficial": 15487.729,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "NE:2026-07-13",
+      "valor_local": null,
+      "valor_oficial": 15755.29,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "NE:2026-07-13",
+      "valor_local": null,
+      "valor_oficial": 15982.478,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "NE:2026-07-13",
+      "valor_local": null,
+      "valor_oficial": 15877.057,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "NE:2026-07-13",
+      "valor_local": null,
+      "valor_oficial": 15729.864,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "NE:2026-07-13",
+      "valor_local": null,
+      "valor_oficial": 15412.402,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "NE:2026-07-13",
+      "valor_local": null,
+      "valor_oficial": 15116.032,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "NE:2026-07-14",
+      "valor_local": null,
+      "valor_oficial": 14830.351,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "NE:2026-07-14",
+      "valor_local": null,
+      "valor_oficial": 14560.604,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "NE:2026-07-14",
+      "valor_local": null,
+      "valor_oficial": 14345.369,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "NE:2026-07-14",
+      "valor_local": null,
+      "valor_oficial": 14177.606,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "NE:2026-07-14",
+      "valor_local": null,
+      "valor_oficial": 13994.568,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "NE:2026-07-14",
+      "valor_local": null,
+      "valor_oficial": 13856.483,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "NE:2026-07-14",
+      "valor_local": null,
+      "valor_oficial": 13742.154,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "NE:2026-07-14",
+      "valor_local": null,
+      "valor_oficial": 13605.838,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "NE:2026-07-14",
+      "valor_local": null,
+      "valor_oficial": 13532.508,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "NE:2026-07-14",
+      "valor_local": null,
+      "valor_oficial": 13505.8,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "NE:2026-07-14",
+      "valor_local": null,
+      "valor_oficial": 13556.168,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "NE:2026-07-14",
+      "valor_local": null,
+      "valor_oficial": 13205.725,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "NE:2026-07-14",
+      "valor_local": null,
+      "valor_oficial": 13089.42,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "NE:2026-07-14",
+      "valor_local": null,
+      "valor_oficial": 12971.495,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "NE:2026-07-14",
+      "valor_local": null,
+      "valor_oficial": 13312.24,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "NE:2026-07-14",
+      "valor_local": null,
+      "valor_oficial": 13595.221,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "NE:2026-07-14",
+      "valor_local": null,
+      "valor_oficial": 13958.541,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "NE:2026-07-14",
+      "valor_local": null,
+      "valor_oficial": 14253.914,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "NE:2026-07-14",
+      "valor_local": null,
+      "valor_oficial": 14231.033,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "revisao_retroativa_nao_capturada",
+      "chave": "N:2026-07-11",
+      "valor_local": 8622.061,
+      "valor_oficial": 9081.034,
+      "delta_pct": 5.054,
+      "severidade": "critico"
+    },
+    {
+      "tipo": "revisao_retroativa_nao_capturada",
+      "chave": "N:2026-07-11",
+      "valor_local": 8622.061,
+      "valor_oficial": 9007.414,
+      "delta_pct": 4.278,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "revisao_retroativa_nao_capturada",
+      "chave": "N:2026-07-11",
+      "valor_local": 8622.061,
+      "valor_oficial": 8894.962,
+      "delta_pct": 3.068,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "revisao_retroativa_nao_capturada",
+      "chave": "N:2026-07-11",
+      "valor_local": 8622.061,
+      "valor_oficial": 8845.645,
+      "delta_pct": 2.528,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "revisao_retroativa_nao_capturada",
+      "chave": "N:2026-07-11",
+      "valor_local": 8622.061,
+      "valor_oficial": 8734.963,
+      "delta_pct": 1.293,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "revisao_retroativa_nao_capturada",
+      "chave": "N:2026-07-11",
+      "valor_local": 8622.061,
+      "valor_oficial": 8574.587,
+      "delta_pct": 0.554,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "revisao_retroativa_nao_capturada",
+      "chave": "N:2026-07-11",
+      "valor_local": 8622.061,
+      "valor_oficial": 8450.106,
+      "delta_pct": 2.035,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "revisao_retroativa_nao_capturada",
+      "chave": "N:2026-07-11",
+      "valor_local": 8622.061,
+      "valor_oficial": 8415.875,
+      "delta_pct": 2.45,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "revisao_retroativa_nao_capturada",
+      "chave": "N:2026-07-11",
+      "valor_local": 8622.061,
+      "valor_oficial": 8331.282,
+      "delta_pct": 3.49,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "revisao_retroativa_nao_capturada",
+      "chave": "N:2026-07-11",
+      "valor_local": 8622.061,
+      "valor_oficial": 8279.771,
+      "delta_pct": 4.134,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "revisao_retroativa_nao_capturada",
+      "chave": "N:2026-07-11",
+      "valor_local": 8622.061,
+      "valor_oficial": 8197.513,
+      "delta_pct": 5.179,
+      "severidade": "critico"
+    },
+    {
+      "tipo": "revisao_retroativa_nao_capturada",
+      "chave": "N:2026-07-11",
+      "valor_local": 8622.061,
+      "valor_oficial": 8117.8643,
+      "delta_pct": 6.211,
+      "severidade": "critico"
+    },
+    {
+      "tipo": "revisao_retroativa_nao_capturada",
+      "chave": "N:2026-07-11",
+      "valor_local": 8622.061,
+      "valor_oficial": 7950.1167,
+      "delta_pct": 8.452,
+      "severidade": "critico"
+    },
+    {
+      "tipo": "revisao_retroativa_nao_capturada",
+      "chave": "N:2026-07-11",
+      "valor_local": 8622.061,
+      "valor_oficial": 7740.4365,
+      "delta_pct": 11.39,
+      "severidade": "critico"
+    },
+    {
+      "tipo": "revisao_retroativa_nao_capturada",
+      "chave": "N:2026-07-11",
+      "valor_local": 8622.061,
+      "valor_oficial": 7731.5464,
+      "delta_pct": 11.518,
+      "severidade": "critico"
+    },
+    {
+      "tipo": "revisao_retroativa_nao_capturada",
+      "chave": "N:2026-07-11",
+      "valor_local": 8622.061,
+      "valor_oficial": 7851.9365,
+      "delta_pct": 9.808,
+      "severidade": "critico"
+    },
+    {
+      "tipo": "revisao_retroativa_nao_capturada",
+      "chave": "N:2026-07-11",
+      "valor_local": 8622.061,
+      "valor_oficial": 7995.917,
+      "delta_pct": 7.831,
+      "severidade": "critico"
+    },
+    {
+      "tipo": "revisao_retroativa_nao_capturada",
+      "chave": "N:2026-07-11",
+      "valor_local": 8622.061,
+      "valor_oficial": 7990.551,
+      "delta_pct": 7.903,
+      "severidade": "critico"
+    },
+    {
+      "tipo": "revisao_retroativa_nao_capturada",
+      "chave": "N:2026-07-11",
+      "valor_local": 8622.061,
+      "valor_oficial": 8024.5146,
+      "delta_pct": 7.447,
+      "severidade": "critico"
+    },
+    {
+      "tipo": "revisao_retroativa_nao_capturada",
+      "chave": "N:2026-07-11",
+      "valor_local": 8622.061,
+      "valor_oficial": 8000.995,
+      "delta_pct": 7.762,
+      "severidade": "critico"
+    },
+    {
+      "tipo": "revisao_retroativa_nao_capturada",
+      "chave": "N:2026-07-11",
+      "valor_local": 8622.061,
+      "valor_oficial": 8068.0244,
+      "delta_pct": 6.867,
+      "severidade": "critico"
+    },
+    {
+      "tipo": "revisao_retroativa_nao_capturada",
+      "chave": "N:2026-07-11",
+      "valor_local": 8622.061,
+      "valor_oficial": 8159.583,
+      "delta_pct": 5.668,
+      "severidade": "critico"
+    },
+    {
+      "tipo": "revisao_retroativa_nao_capturada",
+      "chave": "N:2026-07-11",
+      "valor_local": 8622.061,
+      "valor_oficial": 8300.6875,
+      "delta_pct": 3.872,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "revisao_retroativa_nao_capturada",
+      "chave": "N:2026-07-11",
+      "valor_local": 8622.061,
+      "valor_oficial": 8440.771,
+      "delta_pct": 2.148,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "revisao_retroativa_nao_capturada",
+      "chave": "N:2026-07-11",
+      "valor_local": 8622.061,
+      "valor_oficial": 8405.935,
+      "delta_pct": 2.571,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "revisao_retroativa_nao_capturada",
+      "chave": "N:2026-07-11",
+      "valor_local": 8622.061,
+      "valor_oficial": 8401.105,
+      "delta_pct": 2.63,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "revisao_retroativa_nao_capturada",
+      "chave": "N:2026-07-11",
+      "valor_local": 8622.061,
+      "valor_oficial": 8459.66,
+      "delta_pct": 1.92,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "revisao_retroativa_nao_capturada",
+      "chave": "N:2026-07-11",
+      "valor_local": 8622.061,
+      "valor_oficial": 8547.366,
+      "delta_pct": 0.874,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "revisao_retroativa_nao_capturada",
+      "chave": "N:2026-07-11",
+      "valor_local": 8622.061,
+      "valor_oficial": 8561.904,
+      "delta_pct": 0.703,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "revisao_retroativa_nao_capturada",
+      "chave": "N:2026-07-11",
+      "valor_local": 8622.061,
+      "valor_oficial": 8497.217,
+      "delta_pct": 1.469,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "revisao_retroativa_nao_capturada",
+      "chave": "N:2026-07-11",
+      "valor_local": 8622.061,
+      "valor_oficial": 8360.282,
+      "delta_pct": 3.131,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "revisao_retroativa_nao_capturada",
+      "chave": "N:2026-07-11",
+      "valor_local": 8622.061,
+      "valor_oficial": 8400.144,
+      "delta_pct": 2.642,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "revisao_retroativa_nao_capturada",
+      "chave": "N:2026-07-11",
+      "valor_local": 8622.061,
+      "valor_oficial": 8551.544,
+      "delta_pct": 0.825,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "revisao_retroativa_nao_capturada",
+      "chave": "N:2026-07-11",
+      "valor_local": 8622.061,
+      "valor_oficial": 8776.498,
+      "delta_pct": 1.76,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "revisao_retroativa_nao_capturada",
+      "chave": "N:2026-07-11",
+      "valor_local": 8622.061,
+      "valor_oficial": 8756.506,
+      "delta_pct": 1.535,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "revisao_retroativa_nao_capturada",
+      "chave": "N:2026-07-11",
+      "valor_local": 8622.061,
+      "valor_oficial": 8801.834,
+      "delta_pct": 2.042,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "revisao_retroativa_nao_capturada",
+      "chave": "N:2026-07-11",
+      "valor_local": 8622.061,
+      "valor_oficial": 8759.407,
+      "delta_pct": 1.568,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "revisao_retroativa_nao_capturada",
+      "chave": "N:2026-07-11",
+      "valor_local": 8622.061,
+      "valor_oficial": 8772.224,
+      "delta_pct": 1.712,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "revisao_retroativa_nao_capturada",
+      "chave": "N:2026-07-11",
+      "valor_local": 8622.061,
+      "valor_oficial": 8807.414,
+      "delta_pct": 2.105,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "revisao_retroativa_nao_capturada",
+      "chave": "N:2026-07-11",
+      "valor_local": 8622.061,
+      "valor_oficial": 8828.447,
+      "delta_pct": 2.338,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "revisao_retroativa_nao_capturada",
+      "chave": "N:2026-07-11",
+      "valor_local": 8622.061,
+      "valor_oficial": 8858.181,
+      "delta_pct": 2.666,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "revisao_retroativa_nao_capturada",
+      "chave": "N:2026-07-11",
+      "valor_local": 8622.061,
+      "valor_oficial": 8882.427,
+      "delta_pct": 2.931,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "revisao_retroativa_nao_capturada",
+      "chave": "N:2026-07-11",
+      "valor_local": 8622.061,
+      "valor_oficial": 8881.377,
+      "delta_pct": 2.92,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "revisao_retroativa_nao_capturada",
+      "chave": "N:2026-07-11",
+      "valor_local": 8622.061,
+      "valor_oficial": 8852.178,
+      "delta_pct": 2.6,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "N:2026-07-12",
+      "valor_local": null,
+      "valor_oficial": 8825.662,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "N:2026-07-12",
+      "valor_local": null,
+      "valor_oficial": 8731.129,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "N:2026-07-12",
+      "valor_local": null,
+      "valor_oficial": 8631.383,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "N:2026-07-12",
+      "valor_local": null,
+      "valor_oficial": 8522.679,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "N:2026-07-12",
+      "valor_local": null,
+      "valor_oficial": 8436.51,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "N:2026-07-12",
+      "valor_local": null,
+      "valor_oficial": 8345.775,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "N:2026-07-12",
+      "valor_local": null,
+      "valor_oficial": 8275.297,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "N:2026-07-12",
+      "valor_local": null,
+      "valor_oficial": 8218.464,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "N:2026-07-12",
+      "valor_local": null,
+      "valor_oficial": 8157.859,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "N:2026-07-12",
+      "valor_local": null,
+      "valor_oficial": 8070.766,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "N:2026-07-12",
+      "valor_local": null,
+      "valor_oficial": 7959.443,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "N:2026-07-12",
+      "valor_local": null,
+      "valor_oficial": 7836.258,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "N:2026-07-12",
+      "valor_local": null,
+      "valor_oficial": 7702.8066,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "N:2026-07-12",
+      "valor_local": null,
+      "valor_oficial": 7505.2534,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "N:2026-07-12",
+      "valor_local": null,
+      "valor_oficial": 7445.1797,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "N:2026-07-12",
+      "valor_local": null,
+      "valor_oficial": 7337.093,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "N:2026-07-12",
+      "valor_local": null,
+      "valor_oficial": 7324.3423,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "N:2026-07-12",
+      "valor_local": null,
+      "valor_oficial": 7285.9385,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "N:2026-07-12",
+      "valor_local": null,
+      "valor_oficial": 7300.1445,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "N:2026-07-12",
+      "valor_local": null,
+      "valor_oficial": 7318.478,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "N:2026-07-12",
+      "valor_local": null,
+      "valor_oficial": 7375.9326,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "N:2026-07-12",
+      "valor_local": null,
+      "valor_oficial": 7475.6016,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "N:2026-07-12",
+      "valor_local": null,
+      "valor_oficial": 7601.79,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "N:2026-07-12",
+      "valor_local": null,
+      "valor_oficial": 7703.7266,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "N:2026-07-12",
+      "valor_local": null,
+      "valor_oficial": 7740.7803,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "N:2026-07-12",
+      "valor_local": null,
+      "valor_oficial": 7777.3584,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "N:2026-07-12",
+      "valor_local": null,
+      "valor_oficial": 7913.5566,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "N:2026-07-12",
+      "valor_local": null,
+      "valor_oficial": 8019.12,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "N:2026-07-12",
+      "valor_local": null,
+      "valor_oficial": 8059.8896,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "N:2026-07-12",
+      "valor_local": null,
+      "valor_oficial": 8069.8936,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "N:2026-07-12",
+      "valor_local": null,
+      "valor_oficial": 7972.7295,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "N:2026-07-12",
+      "valor_local": null,
+      "valor_oficial": 8023.579,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "N:2026-07-12",
+      "valor_local": null,
+      "valor_oficial": 8041.7207,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "N:2026-07-12",
+      "valor_local": null,
+      "valor_oficial": 8108.4717,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "N:2026-07-12",
+      "valor_local": null,
+      "valor_oficial": 8076.7246,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "N:2026-07-12",
+      "valor_local": null,
+      "valor_oficial": 8157.5464,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "N:2026-07-12",
+      "valor_local": null,
+      "valor_oficial": 8297.473,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "N:2026-07-12",
+      "valor_local": null,
+      "valor_oficial": 8527.739,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "N:2026-07-12",
+      "valor_local": null,
+      "valor_oficial": 8624.1875,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "N:2026-07-12",
+      "valor_local": null,
+      "valor_oficial": 8687.247,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "N:2026-07-12",
+      "valor_local": null,
+      "valor_oficial": 8757.447,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "N:2026-07-12",
+      "valor_local": null,
+      "valor_oficial": 8823.368,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "N:2026-07-12",
+      "valor_local": null,
+      "valor_oficial": 8897.443,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "N:2026-07-12",
+      "valor_local": null,
+      "valor_oficial": 8978.284,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "N:2026-07-12",
+      "valor_local": null,
+      "valor_oficial": 9075.684,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "N:2026-07-12",
+      "valor_local": null,
+      "valor_oficial": 9149.291,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "N:2026-07-12",
+      "valor_local": null,
+      "valor_oficial": 9155.033,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "N:2026-07-12",
+      "valor_local": null,
+      "valor_oficial": 9112.15,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "N:2026-07-13",
+      "valor_local": null,
+      "valor_oficial": 9061.47,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "N:2026-07-13",
+      "valor_local": null,
+      "valor_oficial": 8984.849,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "N:2026-07-13",
+      "valor_local": null,
+      "valor_oficial": 8882.515,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "N:2026-07-13",
+      "valor_local": null,
+      "valor_oficial": 8801.33,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "N:2026-07-13",
+      "valor_local": null,
+      "valor_oficial": 8704.136,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "N:2026-07-13",
+      "valor_local": null,
+      "valor_oficial": 8607.39,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "N:2026-07-13",
+      "valor_local": null,
+      "valor_oficial": 8500.064,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "N:2026-07-13",
+      "valor_local": null,
+      "valor_oficial": 8455.972,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "N:2026-07-13",
+      "valor_local": null,
+      "valor_oficial": 8364.505,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "N:2026-07-13",
+      "valor_local": null,
+      "valor_oficial": 8248.177,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "N:2026-07-13",
+      "valor_local": null,
+      "valor_oficial": 8200.108,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "N:2026-07-13",
+      "valor_local": null,
+      "valor_oficial": 8095.208,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "N:2026-07-13",
+      "valor_local": null,
+      "valor_oficial": 7927.7705,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "N:2026-07-13",
+      "valor_local": null,
+      "valor_oficial": 7729.8574,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "N:2026-07-13",
+      "valor_local": null,
+      "valor_oficial": 7757.5635,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "N:2026-07-13",
+      "valor_local": null,
+      "valor_oficial": 7884.1006,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "N:2026-07-13",
+      "valor_local": null,
+      "valor_oficial": 8243.985,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "N:2026-07-13",
+      "valor_local": null,
+      "valor_oficial": 8468.148,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "N:2026-07-13",
+      "valor_local": null,
+      "valor_oficial": 8631.565,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "N:2026-07-13",
+      "valor_local": null,
+      "valor_oficial": 8719.256,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "N:2026-07-13",
+      "valor_local": null,
+      "valor_oficial": 8812.844,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "N:2026-07-13",
+      "valor_local": null,
+      "valor_oficial": 8927.639,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "N:2026-07-13",
+      "valor_local": null,
+      "valor_oficial": 9030.676,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "N:2026-07-13",
+      "valor_local": null,
+      "valor_oficial": 9087.928,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "N:2026-07-13",
+      "valor_local": null,
+      "valor_oficial": 9078.132,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "N:2026-07-13",
+      "valor_local": null,
+      "valor_oficial": 9166.691,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "N:2026-07-13",
+      "valor_local": null,
+      "valor_oficial": 9334.242,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "N:2026-07-13",
+      "valor_local": null,
+      "valor_oficial": 9455.11,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "N:2026-07-13",
+      "valor_local": null,
+      "valor_oficial": 9479.507,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "N:2026-07-13",
+      "valor_local": null,
+      "valor_oficial": 9543.252,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "N:2026-07-13",
+      "valor_local": null,
+      "valor_oficial": 9475.397,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "N:2026-07-13",
+      "valor_local": null,
+      "valor_oficial": 9469.632,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "N:2026-07-13",
+      "valor_local": null,
+      "valor_oficial": 9467.424,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "N:2026-07-13",
+      "valor_local": null,
+      "valor_oficial": 9422.6045,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "N:2026-07-13",
+      "valor_local": null,
+      "valor_oficial": 9218.079,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "N:2026-07-13",
+      "valor_local": null,
+      "valor_oficial": 9081.367,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "N:2026-07-13",
+      "valor_local": null,
+      "valor_oficial": 8916.22,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "N:2026-07-13",
+      "valor_local": null,
+      "valor_oficial": 9014.277,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "N:2026-07-13",
+      "valor_local": null,
+      "valor_oficial": 9164.63,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "N:2026-07-13",
+      "valor_local": null,
+      "valor_oficial": 9253.093,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "N:2026-07-13",
+      "valor_local": null,
+      "valor_oficial": 9274.395,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "N:2026-07-13",
+      "valor_local": null,
+      "valor_oficial": 9394.249,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "N:2026-07-13",
+      "valor_local": null,
+      "valor_oficial": 9454.437,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "N:2026-07-13",
+      "valor_local": null,
+      "valor_oficial": 9616.134,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "N:2026-07-13",
+      "valor_local": null,
+      "valor_oficial": 9665.761,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "N:2026-07-13",
+      "valor_local": null,
+      "valor_oficial": 9665.349,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "N:2026-07-13",
+      "valor_local": null,
+      "valor_oficial": 9522.905,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "N:2026-07-13",
+      "valor_local": null,
+      "valor_oficial": 9411.357,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "N:2026-07-14",
+      "valor_local": null,
+      "valor_oficial": 9350.695,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "N:2026-07-14",
+      "valor_local": null,
+      "valor_oficial": 9218.028,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "N:2026-07-14",
+      "valor_local": null,
+      "valor_oficial": 9122.917,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "N:2026-07-14",
+      "valor_local": null,
+      "valor_oficial": 8998.099,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "N:2026-07-14",
+      "valor_local": null,
+      "valor_oficial": 8872.215,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "N:2026-07-14",
+      "valor_local": null,
+      "valor_oficial": 8782.519,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "N:2026-07-14",
+      "valor_local": null,
+      "valor_oficial": 8661.613,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "N:2026-07-14",
+      "valor_local": null,
+      "valor_oficial": 8548.802,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "N:2026-07-14",
+      "valor_local": null,
+      "valor_oficial": 8478.927,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "N:2026-07-14",
+      "valor_local": null,
+      "valor_oficial": 8401.774,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "N:2026-07-14",
+      "valor_local": null,
+      "valor_oficial": 8333.779,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "N:2026-07-14",
+      "valor_local": null,
+      "valor_oficial": 8244.503,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "N:2026-07-14",
+      "valor_local": null,
+      "valor_oficial": 8081.2363,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "N:2026-07-14",
+      "valor_local": null,
+      "valor_oficial": 7843.062,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "N:2026-07-14",
+      "valor_local": null,
+      "valor_oficial": 7864.3013,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "N:2026-07-14",
+      "valor_local": null,
+      "valor_oficial": 7957.976,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "N:2026-07-14",
+      "valor_local": null,
+      "valor_oficial": 8289.802,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "N:2026-07-14",
+      "valor_local": null,
+      "valor_oficial": 8520.816,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "N:2026-07-14",
+      "valor_local": null,
+      "valor_oficial": 8668.207,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "fetch_vazio",
+      "chave": "CO",
+      "valor_local": null,
+      "valor_oficial": null,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "SECO:2026-07-11",
+      "valor_local": null,
+      "valor_oficial": 39715.336,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "SECO:2026-07-11",
+      "valor_local": null,
+      "valor_oficial": 38556.723,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "SECO:2026-07-11",
+      "valor_local": null,
+      "valor_oficial": 37234.83,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "SECO:2026-07-11",
+      "valor_local": null,
+      "valor_oficial": 36292.37,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "SECO:2026-07-11",
+      "valor_local": null,
+      "valor_oficial": 35686.285,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "SECO:2026-07-11",
+      "valor_local": null,
+      "valor_oficial": 35188.09,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "SECO:2026-07-11",
+      "valor_local": null,
+      "valor_oficial": 34792.3,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "SECO:2026-07-11",
+      "valor_local": null,
+      "valor_oficial": 34584.754,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "SECO:2026-07-11",
+      "valor_local": null,
+      "valor_oficial": 34539.297,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "SECO:2026-07-11",
+      "valor_local": null,
+      "valor_oficial": 34544.742,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "SECO:2026-07-11",
+      "valor_local": null,
+      "valor_oficial": 34930.234,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "SECO:2026-07-11",
+      "valor_local": null,
+      "valor_oficial": 35243.59,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "SECO:2026-07-11",
+      "valor_local": null,
+      "valor_oficial": 35797.098,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "SECO:2026-07-11",
+      "valor_local": null,
+      "valor_oficial": 35623.555,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "SECO:2026-07-11",
+      "valor_local": null,
+      "valor_oficial": 36256.867,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "SECO:2026-07-11",
+      "valor_local": null,
+      "valor_oficial": 36626.434,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "SECO:2026-07-11",
+      "valor_local": null,
+      "valor_oficial": 37206.395,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "SECO:2026-07-11",
+      "valor_local": null,
+      "valor_oficial": 37492.46,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "SECO:2026-07-11",
+      "valor_local": null,
+      "valor_oficial": 38153.14,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "SECO:2026-07-11",
+      "valor_local": null,
+      "valor_oficial": 38641.336,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "SECO:2026-07-11",
+      "valor_local": null,
+      "valor_oficial": 39138.96,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "SECO:2026-07-11",
+      "valor_local": null,
+      "valor_oficial": 39793.625,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "SECO:2026-07-11",
+      "valor_local": null,
+      "valor_oficial": 40206.332,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "SECO:2026-07-11",
+      "valor_local": null,
+      "valor_oficial": 40455.67,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "SECO:2026-07-11",
+      "valor_local": null,
+      "valor_oficial": 40606.83,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "SECO:2026-07-11",
+      "valor_local": null,
+      "valor_oficial": 40612.98,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "SECO:2026-07-11",
+      "valor_local": null,
+      "valor_oficial": 40727.906,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "SECO:2026-07-11",
+      "valor_local": null,
+      "valor_oficial": 40680.855,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "SECO:2026-07-11",
+      "valor_local": null,
+      "valor_oficial": 40398.434,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "SECO:2026-07-11",
+      "valor_local": null,
+      "valor_oficial": 40536.57,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "SECO:2026-07-11",
+      "valor_local": null,
+      "valor_oficial": 41151.016,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "SECO:2026-07-11",
+      "valor_local": null,
+      "valor_oficial": 42003.586,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "SECO:2026-07-11",
+      "valor_local": null,
+      "valor_oficial": 42694.68,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "SECO:2026-07-11",
+      "valor_local": null,
+      "valor_oficial": 44069.84,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "SECO:2026-07-11",
+      "valor_local": null,
+      "valor_oficial": 45269.168,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "SECO:2026-07-11",
+      "valor_local": null,
+      "valor_oficial": 47923.875,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "SECO:2026-07-11",
+      "valor_local": null,
+      "valor_oficial": 49936.78,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "SECO:2026-07-11",
+      "valor_local": null,
+      "valor_oficial": 49767.473,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "SECO:2026-07-11",
+      "valor_local": null,
+      "valor_oficial": 48949.62,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "SECO:2026-07-11",
+      "valor_local": null,
+      "valor_oficial": 47271.375,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "SECO:2026-07-11",
+      "valor_local": null,
+      "valor_oficial": 46177.137,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "SECO:2026-07-11",
+      "valor_local": null,
+      "valor_oficial": 45412.977,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "SECO:2026-07-11",
+      "valor_local": null,
+      "valor_oficial": 45689.605,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "SECO:2026-07-11",
+      "valor_local": null,
+      "valor_oficial": 44384.992,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "SECO:2026-07-11",
+      "valor_local": null,
+      "valor_oficial": 42713.51,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "SECO:2026-07-11",
+      "valor_local": null,
+      "valor_oficial": 41524.223,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "SECO:2026-07-11",
+      "valor_local": null,
+      "valor_oficial": 40395.46,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "SECO:2026-07-11",
+      "valor_local": null,
+      "valor_oficial": 38863.68,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "SECO:2026-07-12",
+      "valor_local": null,
+      "valor_oficial": 38005.57,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "SECO:2026-07-12",
+      "valor_local": null,
+      "valor_oficial": 37151.92,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "SECO:2026-07-12",
+      "valor_local": null,
+      "valor_oficial": 36328.605,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "SECO:2026-07-12",
+      "valor_local": null,
+      "valor_oficial": 35328.38,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "SECO:2026-07-12",
+      "valor_local": null,
+      "valor_oficial": 34555.586,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "SECO:2026-07-12",
+      "valor_local": null,
+      "valor_oficial": 33877.574,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "SECO:2026-07-12",
+      "valor_local": null,
+      "valor_oficial": 33446.504,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "SECO:2026-07-12",
+      "valor_local": null,
+      "valor_oficial": 33172.727,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "SECO:2026-07-12",
+      "valor_local": null,
+      "valor_oficial": 32989.83,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "SECO:2026-07-12",
+      "valor_local": null,
+      "valor_oficial": 32985.062,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "SECO:2026-07-12",
+      "valor_local": null,
+      "valor_oficial": 33014.027,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "SECO:2026-07-12",
+      "valor_local": null,
+      "valor_oficial": 33156.848,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "SECO:2026-07-12",
+      "valor_local": null,
+      "valor_oficial": 33314.28,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "SECO:2026-07-12",
+      "valor_local": null,
+      "valor_oficial": 33036.844,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "SECO:2026-07-12",
+      "valor_local": null,
+      "valor_oficial": 33059.625,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "SECO:2026-07-12",
+      "valor_local": null,
+      "valor_oficial": 33344.715,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "SECO:2026-07-12",
+      "valor_local": null,
+      "valor_oficial": 34058.914,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "SECO:2026-07-12",
+      "valor_local": null,
+      "valor_oficial": 34634.93,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "SECO:2026-07-12",
+      "valor_local": null,
+      "valor_oficial": 35372.23,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "SECO:2026-07-12",
+      "valor_local": null,
+      "valor_oficial": 35937.504,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "SECO:2026-07-12",
+      "valor_local": null,
+      "valor_oficial": 36645.863,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "SECO:2026-07-12",
+      "valor_local": null,
+      "valor_oficial": 37298.406,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "SECO:2026-07-12",
+      "valor_local": null,
+      "valor_oficial": 38167.68,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "SECO:2026-07-12",
+      "valor_local": null,
+      "valor_oficial": 38597.703,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "SECO:2026-07-12",
+      "valor_local": null,
+      "valor_oficial": 38728.258,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "SECO:2026-07-12",
+      "valor_local": null,
+      "valor_oficial": 38556.29,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "SECO:2026-07-12",
+      "valor_local": null,
+      "valor_oficial": 38630.453,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "SECO:2026-07-12",
+      "valor_local": null,
+      "valor_oficial": 38317.566,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "SECO:2026-07-12",
+      "valor_local": null,
+      "valor_oficial": 37694.695,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "SECO:2026-07-12",
+      "valor_local": null,
+      "valor_oficial": 37652.125,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "SECO:2026-07-12",
+      "valor_local": null,
+      "valor_oficial": 37866.543,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "SECO:2026-07-12",
+      "valor_local": null,
+      "valor_oficial": 38068.875,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "SECO:2026-07-12",
+      "valor_local": null,
+      "valor_oficial": 39177.863,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "SECO:2026-07-12",
+      "valor_local": null,
+      "valor_oficial": 40587.79,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "SECO:2026-07-12",
+      "valor_local": null,
+      "valor_oficial": 42358.45,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "SECO:2026-07-12",
+      "valor_local": null,
+      "valor_oficial": 44973.36,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "SECO:2026-07-12",
+      "valor_local": null,
+      "valor_oficial": 46947.617,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "SECO:2026-07-12",
+      "valor_local": null,
+      "valor_oficial": 46919.637,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "SECO:2026-07-12",
+      "valor_local": null,
+      "valor_oficial": 46104.688,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "SECO:2026-07-12",
+      "valor_local": null,
+      "valor_oficial": 45490.797,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "SECO:2026-07-12",
+      "valor_local": null,
+      "valor_oficial": 44814.613,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "SECO:2026-07-12",
+      "valor_local": null,
+      "valor_oficial": 44183.84,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "SECO:2026-07-12",
+      "valor_local": null,
+      "valor_oficial": 43454.137,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "SECO:2026-07-12",
+      "valor_local": null,
+      "valor_oficial": 42478.812,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "SECO:2026-07-12",
+      "valor_local": null,
+      "valor_oficial": 41454.95,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "SECO:2026-07-12",
+      "valor_local": null,
+      "valor_oficial": 40377.035,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "SECO:2026-07-12",
+      "valor_local": null,
+      "valor_oficial": 39030.22,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "SECO:2026-07-12",
+      "valor_local": null,
+      "valor_oficial": 37708.746,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "SECO:2026-07-13",
+      "valor_local": null,
+      "valor_oficial": 36667.375,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "SECO:2026-07-13",
+      "valor_local": null,
+      "valor_oficial": 35671.13,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "SECO:2026-07-13",
+      "valor_local": null,
+      "valor_oficial": 34977.938,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "SECO:2026-07-13",
+      "valor_local": null,
+      "valor_oficial": 34438.17,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "SECO:2026-07-13",
+      "valor_local": null,
+      "valor_oficial": 33976.4,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "SECO:2026-07-13",
+      "valor_local": null,
+      "valor_oficial": 33715.41,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "SECO:2026-07-13",
+      "valor_local": null,
+      "valor_oficial": 33433.2,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "SECO:2026-07-13",
+      "valor_local": null,
+      "valor_oficial": 33479.492,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "SECO:2026-07-13",
+      "valor_local": null,
+      "valor_oficial": 33756.055,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "SECO:2026-07-13",
+      "valor_local": null,
+      "valor_oficial": 34199.633,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "SECO:2026-07-13",
+      "valor_local": null,
+      "valor_oficial": 35192.547,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "SECO:2026-07-13",
+      "valor_local": null,
+      "valor_oficial": 36279.56,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "SECO:2026-07-13",
+      "valor_local": null,
+      "valor_oficial": 38169.746,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "SECO:2026-07-13",
+      "valor_local": null,
+      "valor_oficial": 39072.04,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "SECO:2026-07-13",
+      "valor_local": null,
+      "valor_oficial": 40555.39,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "SECO:2026-07-13",
+      "valor_local": null,
+      "valor_oficial": 41688.336,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "SECO:2026-07-13",
+      "valor_local": null,
+      "valor_oficial": 42329.625,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "SECO:2026-07-13",
+      "valor_local": null,
+      "valor_oficial": 42846.848,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "SECO:2026-07-13",
+      "valor_local": null,
+      "valor_oficial": 43079.75,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "SECO:2026-07-13",
+      "valor_local": null,
+      "valor_oficial": 43298.43,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "SECO:2026-07-13",
+      "valor_local": null,
+      "valor_oficial": 43706.996,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "SECO:2026-07-13",
+      "valor_local": null,
+      "valor_oficial": 44028.266,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "SECO:2026-07-13",
+      "valor_local": null,
+      "valor_oficial": 43849.766,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "SECO:2026-07-13",
+      "valor_local": null,
+      "valor_oficial": 43739.58,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "SECO:2026-07-13",
+      "valor_local": null,
+      "valor_oficial": 43579.723,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "SECO:2026-07-13",
+      "valor_local": null,
+      "valor_oficial": 43261.68,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "SECO:2026-07-13",
+      "valor_local": null,
+      "valor_oficial": 43659.836,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "SECO:2026-07-13",
+      "valor_local": null,
+      "valor_oficial": 43911.766,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "SECO:2026-07-13",
+      "valor_local": null,
+      "valor_oficial": 43956.57,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "SECO:2026-07-13",
+      "valor_local": null,
+      "valor_oficial": 44075.844,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "SECO:2026-07-13",
+      "valor_local": null,
+      "valor_oficial": 44425.883,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "SECO:2026-07-13",
+      "valor_local": null,
+      "valor_oficial": 44872.523,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "SECO:2026-07-13",
+      "valor_local": null,
+      "valor_oficial": 45784.113,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "SECO:2026-07-13",
+      "valor_local": null,
+      "valor_oficial": 46811.367,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "SECO:2026-07-13",
+      "valor_local": null,
+      "valor_oficial": 46980.188,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "SECO:2026-07-13",
+      "valor_local": null,
+      "valor_oficial": 49244.965,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "SECO:2026-07-13",
+      "valor_local": null,
+      "valor_oficial": 50956.74,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "SECO:2026-07-13",
+      "valor_local": null,
+      "valor_oficial": 51823.7,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "SECO:2026-07-13",
+      "valor_local": null,
+      "valor_oficial": 51283.035,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "SECO:2026-07-13",
+      "valor_local": null,
+      "valor_oficial": 50538.035,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "SECO:2026-07-13",
+      "valor_local": null,
+      "valor_oficial": 49762.293,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "SECO:2026-07-13",
+      "valor_local": null,
+      "valor_oficial": 49353.465,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "SECO:2026-07-13",
+      "valor_local": null,
+      "valor_oficial": 48403.938,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "SECO:2026-07-13",
+      "valor_local": null,
+      "valor_oficial": 47015.867,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "SECO:2026-07-13",
+      "valor_local": null,
+      "valor_oficial": 45449.715,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "SECO:2026-07-13",
+      "valor_local": null,
+      "valor_oficial": 43912.19,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "SECO:2026-07-13",
+      "valor_local": null,
+      "valor_oficial": 41932.684,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "SECO:2026-07-13",
+      "valor_local": null,
+      "valor_oficial": 40308.145,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "SECO:2026-07-14",
+      "valor_local": null,
+      "valor_oficial": 39117.047,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "SECO:2026-07-14",
+      "valor_local": null,
+      "valor_oficial": 37779.734,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "SECO:2026-07-14",
+      "valor_local": null,
+      "valor_oficial": 36745.797,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "SECO:2026-07-14",
+      "valor_local": null,
+      "valor_oficial": 35906.008,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "SECO:2026-07-14",
+      "valor_local": null,
+      "valor_oficial": 35514.176,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "SECO:2026-07-14",
+      "valor_local": null,
+      "valor_oficial": 35169.215,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "SECO:2026-07-14",
+      "valor_local": null,
+      "valor_oficial": 34974.336,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "SECO:2026-07-14",
+      "valor_local": null,
+      "valor_oficial": 34882.6,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "SECO:2026-07-14",
+      "valor_local": null,
+      "valor_oficial": 35094.156,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "SECO:2026-07-14",
+      "valor_local": null,
+      "valor_oficial": 35222.61,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "SECO:2026-07-14",
+      "valor_local": null,
+      "valor_oficial": 36142.207,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "SECO:2026-07-14",
+      "valor_local": null,
+      "valor_oficial": 37300.66,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "SECO:2026-07-14",
+      "valor_local": null,
+      "valor_oficial": 39012.066,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "SECO:2026-07-14",
+      "valor_local": null,
+      "valor_oficial": 39394.938,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "SECO:2026-07-14",
+      "valor_local": null,
+      "valor_oficial": 40709.973,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "SECO:2026-07-14",
+      "valor_local": null,
+      "valor_oficial": 40898.574,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "SECO:2026-07-14",
+      "valor_local": null,
+      "valor_oficial": 40858.863,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "SECO:2026-07-14",
+      "valor_local": null,
+      "valor_oficial": 40514.17,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "ausente_localmente",
+      "chave": "SECO:2026-07-14",
+      "valor_local": null,
+      "valor_oficial": 40582.45,
+      "delta_pct": null,
+      "severidade": "atencao"
+    }
+  ]
+}

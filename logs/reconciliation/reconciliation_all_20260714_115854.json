@@ -1,0 +1,124 @@
+{
+  "timestamp": "2026-07-14T11:33:16.266037",
+  "resumo": {
+    "contagem_tabelas": {
+      "mmgd_raw": 5947561,
+      "mmgd_fato": 1350000,
+      "mmgd_vector_docs": 0,
+      "ons_carga": 1920,
+      "mmgd_meta": 1,
+      "dessem_detalhe": 76877,
+      "siga_fato": 25215,
+      "growth_log": 2
+    },
+    "total_divergencias": 13,
+    "criticos": 1,
+    "atencoes": 12
+  },
+  "divergencias": [
+    {
+      "tipo": "campo_ausente_no_schema",
+      "chave": "mmgd_fato.classe_producao",
+      "valor_local": "ausente",
+      "valor_oficial": "presente na fonte ANEEL",
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "campo_ausente_no_schema",
+      "chave": "mmgd_fato.data_conexao",
+      "valor_local": "ausente",
+      "valor_oficial": "presente na fonte ANEEL",
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "campo_ausente_no_schema",
+      "chave": "mmgd_fato.distribuidora",
+      "valor_local": "ausente",
+      "valor_oficial": "presente na fonte ANEEL",
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "campo_ausente_no_schema",
+      "chave": "mmgd_fato.municipio",
+      "valor_local": "ausente",
+      "valor_oficial": "presente na fonte ANEEL",
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "campo_ausente_no_schema",
+      "chave": "mmgd_fato.nome_titular",
+      "valor_local": "ausente",
+      "valor_oficial": "presente na fonte ANEEL",
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "campo_ausente_no_schema",
+      "chave": "mmgd_fato.qtd_uc_recebe_credito",
+      "valor_local": "ausente",
+      "valor_oficial": "presente na fonte ANEEL",
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "campo_ausente_no_schema",
+      "chave": "mmgd_fato.subgrupo",
+      "valor_local": "ausente",
+      "valor_oficial": "presente na fonte ANEEL",
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "campo_ausente_no_schema",
+      "chave": "mmgd_fato.tipo_unidade_produtora",
+      "valor_local": "ausente",
+      "valor_oficial": "presente na fonte ANEEL",
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "etl_raw_para_fato_incompleto",
+      "chave": "mmgd_raw->mmgd_fato",
+      "valor_local": 1350000,
+      "valor_oficial": 5947561,
+      "delta_pct": 77.3,
+      "severidade": "critico"
+    },
+    {
+      "tipo": "fetch_falhou",
+      "chave": "SUDESTE",
+      "valor_local": null,
+      "valor_oficial": null,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "fetch_falhou",
+      "chave": "SUL",
+      "valor_local": null,
+      "valor_oficial": null,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "fetch_falhou",
+      "chave": "NORDESTE",
+      "valor_local": null,
+      "valor_oficial": null,
+      "delta_pct": null,
+      "severidade": "atencao"
+    },
+    {
+      "tipo": "fetch_falhou",
+      "chave": "NORTE",
+      "valor_local": null,
+      "valor_oficial": null,
+      "delta_pct": null,
+      "severidade": "atencao"
+    }
+  ]
+}
