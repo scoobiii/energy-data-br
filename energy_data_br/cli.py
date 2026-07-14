@@ -62,7 +62,7 @@ def sync_aneel(db_path, max_records):
     init_db(conn)
     print(f"🔄 Sincronizando ANEEL (limite: {max_records or 'todos'})...")
     count = 0
-    for rec in get_all_records():
+    for rec in get_all_records(max_records=max_records):
         hash_ = rec.get('_hash', '')
         cursor = conn.execute(
             """INSERT OR IGNORE INTO mmgd_raw 

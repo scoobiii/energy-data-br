@@ -68,15 +68,15 @@ def fetch_schema(resource_id: str | None = None) -> list[dict]:
 
 
 def iter_records(
-    resource_id: str | None = None,
+    zip_path=None,
     page_size: int = 5000,
     max_records: int | None = None,
     on_page=None,
 ) -> Iterator[dict]:
-    """Streaming real do CSV dentro do ZIP. resource_id/page_size mantidos
-    na assinatura por compatibilidade, não usados (dataset é snapshot único)."""
+    """Streaming real do CSV dentro do ZIP."""
     import zipfile
-    zip_path = _download_snapshot(_get_latest_zip_url())
+    if zip_path is None:
+        zip_path = _download_snapshot(_get_latest_zip_url())
     total = 0
     with zipfile.ZipFile(zip_path) as zf:
         csv_name = next(n for n in zf.namelist() if n.lower().endswith(".csv"))
@@ -115,8 +115,8 @@ def get_latest_resource() -> Dict[str, Any]:
 
 # Aliases para compatibilidade com CLI
 
-def get_all_records(cache_dir: Path = Path("cache")):
+def get_all_records(cache_dir: Path = Path("cache"), max_records: int | None = None):
     """Fluxo completo: download → parse → streaming."""
     url = _get_latest_zip_url()
     zip_path = _download_snapshot(url)
-    yield from iter_records(zip_path)
+    yield from iter_records(zip_path=zip_path, max_records=max_records)
