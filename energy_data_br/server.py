@@ -345,8 +345,8 @@ class EnergyAPIHandler(BaseHTTPRequestHandler):
             conn = get_db_connection()
             if nivel == 'fonte':
                 rows = conn.execute("""
-                    SELECT dscfontegeracao as fonte, SUM(potencia_instalada_kw) as valor_kw, COUNT(*) as empreendimentos
-                    FROM mmgd_fato WHERE dscfontegeracao != ''
+                    SELECT dscfontegeracao as fonte, SUM(potencia_total_kw) as valor_kw, SUM(empreendimentos) as empreendimentos
+                    FROM treemap_cache WHERE dscfontegeracao != ''
                     GROUP BY dscfontegeracao ORDER BY valor_kw DESC
                 """).fetchall()
                 conn.close()
@@ -357,8 +357,8 @@ class EnergyAPIHandler(BaseHTTPRequestHandler):
                 return
             if nivel == 'uf':
                 rows = conn.execute("""
-                    SELECT siguf as uf, SUM(potencia_instalada_kw) as valor_kw, COUNT(*) as empreendimentos
-                    FROM mmgd_fato WHERE siguf != ''
+                    SELECT siguf as uf, SUM(potencia_total_kw) as valor_kw, SUM(empreendimentos) as empreendimentos
+                    FROM treemap_cache WHERE siguf != ''
                     GROUP BY siguf ORDER BY valor_kw DESC
                 """).fetchall()
                 conn.close()
@@ -369,9 +369,9 @@ class EnergyAPIHandler(BaseHTTPRequestHandler):
                 return
             # uf_fonte
             rows = conn.execute("""
-                SELECT siguf as uf, dscfontegeracao as fonte, SUM(potencia_instalada_kw) as valor_kw, COUNT(*) as empreendimentos
-                FROM mmgd_fato WHERE siguf != '' AND dscfontegeracao != ''
-                GROUP BY siguf, dscfontegeracao ORDER BY siguf, valor_kw DESC
+                SELECT siguf as uf, dscfontegeracao as fonte, potencia_total_kw as valor_kw, empreendimentos
+                FROM treemap_cache WHERE siguf != '' AND dscfontegeracao != ''
+                ORDER BY siguf, valor_kw DESC
             """).fetchall()
             conn.close()
             por_uf = {}
@@ -403,6 +403,8 @@ class EnergyAPIHandler(BaseHTTPRequestHandler):
         # ========== PÁGINAS ESTÁTICAS ==========
         elif path == '/dashboard':
             self.send_file(str(WEB_DIR / 'dashboard.html'))
+        elif path == '/ons':
+            self.send_file(str(WEB_DIR / 'ons_dashboard.html'))
         elif path == '/treemap':
             self.send_file(str(WEB_DIR / 'treemap.html'))
 
